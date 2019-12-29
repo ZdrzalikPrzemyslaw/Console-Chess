@@ -1,5 +1,0 @@
-D:/Studia/Pobi/pobi_proj_szachy/trunk/cmake-build-debug/CMakeFiles/TestChess.dir
-D:/Studia/Pobi/pobi_proj_szachy/trunk/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Studia/Pobi/pobi_proj_szachy/trunk/cmake-build-debug/CMakeFiles/pobi_proj_szachy.dir
-D:/Studia/Pobi/pobi_proj_szachy/trunk/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-D:/Studia/Pobi/pobi_proj_szachy/trunk/cmake-build-debug/CMakeFiles/test.dir

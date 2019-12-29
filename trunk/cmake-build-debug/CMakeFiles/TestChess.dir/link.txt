@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2019.2.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\TestChess.dir/objects.a
-E:\msys2\mingw64\bin\ar.exe cr CMakeFiles\TestChess.dir/objects.a @CMakeFiles\TestChess.dir\objects1.rsp
-E:\msys2\mingw64\bin\g++.exe -DBOOST_SYSTEM_NO_DEPRECATED -g3 -gdwarf-4   -Wl,--whole-archive CMakeFiles\TestChess.dir/objects.a -Wl,--no-whole-archive  -o TestChess.exe -Wl,--out-implib,libTestChess.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\TestChess.dir\linklibs.rsp
