@@ -15,11 +15,10 @@ public:
     virtual int get_value() = 0;
     bool get_is_white();
     virtual bool can_move(Field) = 0;
-    Piece(bool);
+    explicit Piece(bool);
     bool is_on_a_field();
-    bool queening(char);
-    void set_field(Field);
-    Field get_field();
+    void set_field(std::shared_ptr<Field>);
+    std::shared_ptr<Field> get_field();
 };
 
 
