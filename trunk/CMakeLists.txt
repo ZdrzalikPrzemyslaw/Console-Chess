@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g3 -gdwarf-4")
 find_package (Boost 1.60.0 COMPONENTS "unit_test_framework" REQUIRED)
 
 set(SOURCE_FILES
-        program/src/Field.cpp program/headers/Field.h program/headers/Position.h program/src/Position.cpp program/src/Board.cpp program/headers/Board.h program/src/Pieces/Piece.cpp program/headers/Pieces/Piece.h program/src/Pieces/Pawn.cpp program/headers/Pieces/Pawn.h)
+        program/src/Field.cpp program/headers/Field.h program/headers/Position.h program/src/Position.cpp program/src/Board.cpp program/headers/Board.h program/src/Pieces/Piece.cpp program/headers/Pieces/Piece.h program/src/Pieces/Pawn.cpp program/headers/Pieces/Pawn.h program/src/Pieces/Queen.cpp program/headers/Pieces/Queen.h program/src/Pieces/Rook.cpp program/headers/Pieces/Rook.h program/src/Pieces/Knight.cpp program/headers/Pieces/Knight.h program/src/Pieces/Bishop.cpp program/headers/Pieces/Bishop.h program/src/Pieces/King.cpp program/headers/Pieces/King.h)
 
 set(SOURCE_TEST_FILES
         program/test/master.cpp
