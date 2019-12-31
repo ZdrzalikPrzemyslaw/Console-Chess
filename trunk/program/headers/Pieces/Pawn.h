@@ -14,6 +14,7 @@ public:
     int get_value() final;
     bool can_move(std::shared_ptr<Field>) final;
     explicit Pawn(bool);
+    void set_has_moved(bool);
 };
 
 

@@ -14,3 +14,11 @@ Position Field::get_position() {
 std::shared_ptr<Piece> Field::get_piece() {
     return this->piece;
 }
+
+void Field::set_piece(std::shared_ptr<Piece> piece) {
+    this->piece = piece;
+}
+
+bool Field::is_taken() {
+    return !(this->get_piece() == nullptr);
+}
