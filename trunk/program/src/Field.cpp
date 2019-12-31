@@ -3,10 +3,14 @@
 //
 
 #include "Field.h"
-
+#include "Pieces/Piece.h"
 
 Field::Field(int row, int col) : position(Position(row, col)) {}
 
 Position Field::get_position() {
     return this->position;
+}
+
+std::shared_ptr<Piece> Field::get_piece() {
+    return this->piece;
 }

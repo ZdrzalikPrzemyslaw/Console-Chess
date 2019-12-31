@@ -14,7 +14,7 @@ set(SOURCE_FILES
 
 set(SOURCE_TEST_FILES
         program/test/master.cpp
-        program/test/FieldTest.cpp program/test/BoardTest.cpp )
+        program/test/FieldTest.cpp program/test/BoardTest.cpp program/test/PiecesTest.cpp)
 
 
 add_executable (TestChess

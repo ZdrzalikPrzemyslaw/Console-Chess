@@ -7,6 +7,14 @@
 #include "memory"
 class Field;
 
+const int pawn_value = 1;
+const int knight_value = 3;
+const int bishop_value = 3;
+const int rook_value = 5;
+const int queen_value = 9;
+const int king_value = SHRT_MAX;
+
+
 class Piece {
 private:
     bool is_white;

@@ -13,7 +13,6 @@ private:
 public:
     int get_value() final;
     bool can_move(Field) final;
-    bool queening(char);
 };
 
 
