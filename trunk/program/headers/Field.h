@@ -19,7 +19,7 @@ public:
     Position get_position();
     Field(int, int);
     std::shared_ptr<Piece> get_piece();
-    void set_piece(Piece);
+    //void set_piece(Piece);
     bool is_taken();
 };
 

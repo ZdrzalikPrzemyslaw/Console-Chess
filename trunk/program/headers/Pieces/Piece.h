@@ -22,7 +22,7 @@ private:
 public:
     virtual int get_value() = 0;
     bool get_is_white();
-    virtual bool can_move(Field) = 0;
+    virtual bool can_move(std::shared_ptr<Field>) = 0;
     explicit Piece(bool);
     bool is_on_a_field();
     void set_field(std::shared_ptr<Field>);
