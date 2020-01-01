@@ -26,6 +26,7 @@ BOOST_AUTO_TEST_SUITE(PieceTestSuite)
     BOOST_AUTO_TEST_CASE(white_pawn_test1) {
         std::shared_ptr<Board> test_board1 = std::make_shared<Board>();
         std::shared_ptr<Pawn> test_pawn1 = std::make_shared<Pawn>(true);
+        BOOST_CHECK_EQUAL(test_pawn1->get_value(), 1);
         std::shared_ptr<Piece> test_pawn2 = std::make_shared<Pawn>(false);
         std::shared_ptr<Piece> test_pawn3 = std::make_shared<Pawn>(true);
         test_pawn1->set_field(test_board1->get_field(test_pos1));
@@ -64,7 +65,8 @@ BOOST_AUTO_TEST_SUITE(PieceTestSuite)
         BOOST_CHECK_EQUAL(false,test_pawn1->can_move(test_board1->get_field(test_pos10)));
         test_pawn1->set_has_moved(true);
         BOOST_CHECK_EQUAL(false,test_pawn1->can_move(test_board1->get_field(test_pos8)));
-
     }
+
+    // TODO: other pieces tests
 
 BOOST_AUTO_TEST_SUITE_END()

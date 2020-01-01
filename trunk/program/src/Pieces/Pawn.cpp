@@ -13,9 +13,13 @@ int Pawn::get_value() {
 
 Pawn::Pawn(bool is_white) : Piece(is_white){}
 
-//TODO: check if this works
+
 
 bool Pawn::can_move(std::shared_ptr<Field> field_final) { // board row count starts at 0 ends at 7. Black pawns start at row 7, white at row 1. (Player sees the pieces on fields 1-8)
+    Position tmp = field_final->get_position();
+    if (this->get_field()->get_position().operator==(tmp)) {
+        return false;
+    }
     if (this->get_is_white()){
         if (field_final->get_position().row - this->get_field()->get_position().row == 2 &&
         (!this->has_moved) &&
