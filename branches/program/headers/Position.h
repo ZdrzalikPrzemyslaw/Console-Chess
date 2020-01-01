@@ -9,6 +9,7 @@ struct Position{
 public:
     int row;
     int col;
+    bool operator == (Position &rhs);
     Position();
     Position(int, int);
 };

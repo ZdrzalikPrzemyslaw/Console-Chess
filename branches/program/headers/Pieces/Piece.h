@@ -7,6 +7,14 @@
 #include "memory"
 class Field;
 
+const int pawn_value = 1;
+const int knight_value = 3;
+const int bishop_value = 3;
+const int rook_value = 5;
+const int queen_value = 9;
+const int king_value = SHRT_MAX;
+
+
 class Piece {
 private:
     bool is_white;
@@ -14,12 +22,11 @@ private:
 public:
     virtual int get_value() = 0;
     bool get_is_white();
-    virtual bool can_move(Field) = 0;
-    Piece(bool);
+    virtual bool can_move(std::shared_ptr<Field>) = 0;
+    explicit Piece(bool);
     bool is_on_a_field();
-    bool queening(char);
-    void set_field(Field);
-    Field get_field();
+    void set_field(std::shared_ptr<Field>);
+    std::shared_ptr<Field> get_field();
 };
 
 

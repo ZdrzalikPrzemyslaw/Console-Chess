@@ -11,9 +11,10 @@ class Pawn : public Piece{
 private:
     bool has_moved = false;
 public:
-    int get_value();
-    bool can_move(Field);
-
+    int get_value() final;
+    bool can_move(std::shared_ptr<Field>) final;
+    explicit Pawn(bool);
+    void set_has_moved(bool);
 };
 
 

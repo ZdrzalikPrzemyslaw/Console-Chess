@@ -6,6 +6,7 @@
 #define POBI_PROJ_SZACHY_FIELD_H
 
 #include "Position.h"
+#include "memory"
 
 struct Position;
 class Piece;
@@ -13,11 +14,12 @@ class Piece;
 class Field {
 private:
     Position position;
+    std::shared_ptr<Piece> piece;
 public:
     Position get_position();
     Field(int, int);
-    Piece get_piece();
-    void set_piece(Piece);
+    std::shared_ptr<Piece> get_piece();
+    void set_piece(std::shared_ptr<Piece>);
     bool is_taken();
 };
 
