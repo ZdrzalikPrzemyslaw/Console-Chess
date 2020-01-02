@@ -6,7 +6,7 @@
 #include <memory>
 #include "Field.h"
 #include "Board.h"
-// #include "test.h"
+
 
 
 BOOST_AUTO_TEST_SUITE(BoardTestSuite)
