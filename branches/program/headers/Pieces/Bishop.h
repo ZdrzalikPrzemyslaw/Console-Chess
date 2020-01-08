@@ -12,6 +12,7 @@ class Bishop : public Piece {
 public:
     int get_value() final;
     bool can_move(std::shared_ptr<Field>) final;
+    using Piece::Piece;
 };
 
 

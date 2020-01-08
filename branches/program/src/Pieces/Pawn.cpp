@@ -11,7 +11,7 @@ int Pawn::get_value() {
     return pawn_value;
 }
 
-Pawn::Pawn(bool is_white) : Piece(is_white){}
+//Pawn::Pawn(bool is_white) : Piece(is_white){}
 
 
 

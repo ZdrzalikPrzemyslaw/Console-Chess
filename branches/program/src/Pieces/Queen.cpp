@@ -25,3 +25,5 @@ bool Queen::can_move(std::shared_ptr<Field> field_final) {
     }
     return false;
 }
+
+//Queen::Queen(bool is_white) {}
