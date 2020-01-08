@@ -6,6 +6,8 @@
 #include <memory>
 #include <Pieces/Queen.h>
 #include <Pieces/Rook.h>
+#include <Pieces/Bishop.h>
+#include <Pieces/Knight.h>
 #include "Field.h"
 #include "Pieces/Piece.h"
 #include "Pieces/Pawn.h"
@@ -153,8 +155,93 @@ BOOST_AUTO_TEST_SUITE(PieceTestSuite)
         BOOST_CHECK(!test_rook1->can_move(test_board1->get_field(Position(7,7))));
         BOOST_CHECK(!test_rook1->can_move(test_board1->get_field(Position(5,5))));
         BOOST_CHECK(!test_rook1->can_move(test_board1->get_field(Position(3,2))));
+        BOOST_CHECK_THROW(test_rook1->can_move(test_board1->get_field(Position(-1,0))), std::out_of_range);
 }
 
-    // TODO: other pieces tests
+    BOOST_AUTO_TEST_CASE(bishop_test){
+        std::shared_ptr<Board> test_board1 = std::make_shared<Board>();
+        std::shared_ptr<Piece> test_bishop1 = std::make_shared<Bishop>(true);
+        test_bishop1->set_field(test_board1->get_field(test_pos1));    // Position test_pos1(1,1);
+        test_board1->get_field(test_pos1)->set_piece(test_bishop1);
+        BOOST_CHECK_EQUAL(test_bishop1->get_field(), test_board1->get_field(test_pos1));
+        BOOST_CHECK_EQUAL(test_bishop1, test_board1->get_field(test_pos1)->get_piece());
+        BOOST_CHECK(!test_bishop1->can_move(test_board1->get_field(Position(1,0))));
+        BOOST_CHECK(!test_bishop1->can_move(test_board1->get_field(Position(1,1))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(2,2))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(3,3))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(4,4))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(5,5))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(6,6))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(7,7))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(2,0))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(0,0))));
+        BOOST_CHECK(test_bishop1->can_move(test_board1->get_field(Position(0,2))));
+        BOOST_TEST_PASSPOINT();
+        BOOST_CHECK_THROW(test_bishop1->can_move(test_board1->get_field(Position(-1,3))), std::out_of_range);
+}
+
+    BOOST_AUTO_TEST_CASE(knight_test){
+        std::shared_ptr<Board> test_board1 = std::make_shared<Board>();
+        std::shared_ptr<Piece> test_knight1 = std::make_shared<Knight>(true);
+        test_knight1->set_field(test_board1->get_field(test_pos4));    // Position test_pos4(2,2);
+        test_board1->get_field(test_pos4)->set_piece(test_knight1);
+        BOOST_CHECK_EQUAL(test_knight1->get_field(), test_board1->get_field(test_pos4));
+        BOOST_CHECK_EQUAL(test_knight1, test_board1->get_field(test_pos4)->get_piece());
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(0,1))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(0,3))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(1,0))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(1,4))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(3,0))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(3,4))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(4,1))));
+        BOOST_CHECK(test_knight1->can_move(test_board1->get_field(Position(4,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,0))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,1))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,4))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(5,7))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,0))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,1))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,4))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(6,7))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,0))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,1))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,4))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(7,7))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,0))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,4))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(0,7))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,1))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(1,7))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,0))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,1))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,2))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,3))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,4))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,5))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,6))));
+        BOOST_CHECK(!test_knight1->can_move(test_board1->get_field(Position(2,7))));
+}
+
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
