@@ -35,3 +35,4 @@ int Board::board_size() {
     }
     return tmp;
 }
+

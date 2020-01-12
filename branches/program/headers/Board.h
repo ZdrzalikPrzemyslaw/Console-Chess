@@ -20,7 +20,7 @@ public:
     void draw();
     bool is_clear_path(Position, Position);
     std::vector<std::vector<std::shared_ptr<Field>>> get_board();
-    int board_size(); // for testing only
+    int board_size(); // for testing only TODO : remove
 };
 
 
