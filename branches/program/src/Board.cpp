@@ -23,7 +23,7 @@ std::vector<std::vector<std::shared_ptr<Field>>> Board::get_board() {
 
 std::shared_ptr<Field> Board::get_field(Position position) {
     if(position.row  < 0 || (position.col < 0)){
-        throw std::out_of_range ("VECTOR HAS TO BE A NATURAL NUMBER");  // TODO: add error for out of range non negative
+        throw std::out_of_range ("VECTOR HAS TO BE A NATURAL NUMBER");  // TODO: add error for out of range non negative+
     }
     return this->fields[position.row][position.col];
 }
