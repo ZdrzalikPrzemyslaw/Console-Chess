@@ -17,10 +17,12 @@
 #include "Field.h"
 
 #include "Player/Player.h"
+#include "Player/Human.h"
+#include "Player/AI.h"
 
 #include <iostream>
 
-void Game::initialize() {
+void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     auto tmp = std::make_shared<Board>();
     this->board = tmp;
     for (int i = 0; i < 8; i++) {
@@ -79,26 +81,38 @@ void Game::initialize() {
     this->board->get_board()[7][5]->set_piece(this->black_pieces[13]);
     this->black_pieces[13]->set_field(this->board->get_board()[7][5]);
 
-    this->board->get_board()[0][3]->set_piece(this->white_pieces[14]);
-    this->white_pieces[14]->set_field(this->board->get_board()[0][3]);
-    this->board->get_board()[7][3]->set_piece(this->black_pieces[14]);
-    this->black_pieces[14]->set_field(this->board->get_board()[7][3]);
+    this->board->get_board()[0][4]->set_piece(this->white_pieces[14]);
+    this->white_pieces[14]->set_field(this->board->get_board()[0][4]);
+    this->board->get_board()[7][4]->set_piece(this->black_pieces[14]);
+    this->black_pieces[14]->set_field(this->board->get_board()[7][4]);
 
-    this->board->get_board()[0][4]->set_piece(this->white_pieces[15]);
-    this->white_pieces[15]->set_field(this->board->get_board()[0][4]);
-    this->board->get_board()[7][4]->set_piece(this->black_pieces[15]);
-    this->black_pieces[15]->set_field(this->board->get_board()[7][4]);
+    this->board->get_board()[0][3]->set_piece(this->white_pieces[15]);
+    this->white_pieces[15]->set_field(this->board->get_board()[0][3]);
+    this->board->get_board()[7][3]->set_piece(this->black_pieces[15]);
+    this->black_pieces[15]->set_field(this->board->get_board()[7][3]);
+    if(!is_ai_player1){
+        this->players.push_back(std::make_shared<Human>(true));
+    }else{
+        this->players.push_back(std::make_shared<AI>(true));
+    }
+    if(!is_ai_player2){
+        this->players.push_back(std::make_shared<Human>(false));
+    }else{
+        this->players.push_back(std::make_shared<AI>(false));
+    }
 
-    this->players.push_back(std::make_shared<Player>(true));
-    this->players.push_back(std::make_shared<Player>(false));
-
-    this->players[0]->set_pieces(this->white_pieces);
-    this->players[1]->set_pieces(this->black_pieces);
-
+    this->get_white_player()->set_pieces(this->white_pieces);
+    this->get_white_player()->set_enemy_pieces(this->black_pieces);
+    this->get_black_player()->set_pieces(this->black_pieces);
+    this->get_black_player()->set_enemy_pieces(this->white_pieces);
 }
 
 Game::Game(){
     initialize();
+}
+
+Game::Game(bool is_ai_player1, bool is_ai_player2) {
+    initialize(is_ai_player1, is_ai_player2);
 }
 
 const std::shared_ptr<Board> &Game::get_board() const {

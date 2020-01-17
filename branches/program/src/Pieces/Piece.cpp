@@ -23,3 +23,4 @@ void Piece::set_field(std::shared_ptr<Field> field) {
     this->field = field;
 }
 
+

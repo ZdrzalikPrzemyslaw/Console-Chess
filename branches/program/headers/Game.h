@@ -28,6 +28,7 @@ public:
 
     const std::shared_ptr<Player> &get_black_player() const;
     Game();
+    Game(bool is_ai_player1, bool is_ai_player2);
 
 private:
     std::vector<std::shared_ptr<Piece>> white_pieces;
@@ -36,7 +37,7 @@ private:
 public:
     void save_game();
     void load_game();
-    void initialize();
+    void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
     void main_game_loop();
 
 };

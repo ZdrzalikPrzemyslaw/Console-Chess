@@ -17,6 +17,7 @@ class Player {
     int score = 0;
     std::vector<std::shared_ptr<Move>> all_moves;
     std::vector<std::shared_ptr<Piece>> pieces;
+    std::vector<std::shared_ptr<Piece>> enemy_pieces;
     std::vector<std::shared_ptr<Piece>> captured_pieces;
     std::shared_ptr<Board> current_board_state;
 public:
@@ -25,8 +26,13 @@ public:
     int get_score();
     void set_current_board_state(std::shared_ptr<Board> current_board_state);
     std::shared_ptr<Board> get_current_board_state(); // #TODO: usun - do testow
-    Player(bool is_white);
+    std::vector<std::shared_ptr<Piece>> get_pieces(); // #TODO: usun - do testow
+    std::vector<std::shared_ptr<Piece>> get_enemy_pieces(); // #TODO: usun - do testow
 
+    Player(bool is_white);
+    virtual bool move() = 0;
+    void set_enemy_pieces(std::vector<std::shared_ptr<Piece>> enemy_pieces);
+    bool is_check();
 
 };
 

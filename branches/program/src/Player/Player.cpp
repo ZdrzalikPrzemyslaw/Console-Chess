@@ -4,6 +4,11 @@
 
 #include "Player/Player.h"
 #include "Pieces/Piece.h"
+#include "Pieces/King.h"
+#include "Pieces/Queen.h"
+#include "Board.h"
+#include "Field.h"
+#include "iostream"
 
 
 void Player::set_pieces(std::vector<std::shared_ptr<Piece>> pieces) {
@@ -30,4 +35,30 @@ std::shared_ptr<Board> Player::get_current_board_state() {
 
 void Player::set_current_board_state(std::shared_ptr<Board> current_board_state) {
     this->current_board_state = current_board_state;
+}
+
+void Player::set_enemy_pieces(std::vector<std::shared_ptr<Piece>> enemy_pieces) {
+    this->enemy_pieces = enemy_pieces;
+}
+
+std::vector<std::shared_ptr<Piece>> Player::get_pieces() {
+    return this->pieces;
+}
+
+std::vector<std::shared_ptr<Piece>> Player::get_enemy_pieces() {
+    return this->enemy_pieces;
+}
+
+bool Player::is_check() {
+    for(auto &i : this->pieces){
+        if(dynamic_cast<King*>(i.get()) != nullptr){
+            for(auto &j : this->enemy_pieces){
+                if(j->is_on_a_field() && j->can_move(i->get_field()) && this->get_current_board_state()->is_clear_path(j->get_field()->get_position(), i->get_field()->get_position())){
+                    return true;
+                }
+            }
+
+        }
+    }
+    return false;
 }
