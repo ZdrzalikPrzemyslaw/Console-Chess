@@ -62,3 +62,4 @@ bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
     }
     return true;
 }
+
