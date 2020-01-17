@@ -42,7 +42,6 @@ BOOST_AUTO_TEST_CASE(PlayerTest1) {
         game.get_white_player()->set_current_board_state(game.get_board());
         game.get_white_player()->generate_all_moves();
         int tmp = 0;
-        game.draw();
         for(auto &i : game.get_white_player()->get_all_moves()){
             tmp += i.size();
         }
@@ -53,7 +52,6 @@ BOOST_AUTO_TEST_CASE(PlayerTest1) {
         for(auto &i : game.get_black_player()->get_all_moves()){
             tmp += i.size();
         }
-        game.draw();
         BOOST_CHECK_EQUAL(20, tmp);
 }
 

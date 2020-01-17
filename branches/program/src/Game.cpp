@@ -180,6 +180,8 @@ void Game::draw() {
     std::vector<std::vector<std::string>> figure_color_name;
     int index1 = 0;
     int index2 = 0;
+    int points_white=players[0]->get_score();
+    int points_black=players[1]->get_score();
     for(auto &i : this->board->get_board()){
         figure_color_name.push_back(std::vector<std::string>());
         for(auto &j : i){
@@ -213,38 +215,49 @@ void Game::draw() {
                 else if(dynamic_cast<Rook*>(test.get())){
                     figure_color_name[index2][index1] += figure_name_rook;
                 }
+
+
+
             }
             index1++;
         }
         index1 = 0;
         index2++;
     }
-    std::cout << left_upper_corner;
+    std::cout<<'\n'<<"Player White: "<<points_white<<"      Player Black: "<<points_white<<'\n';
+    std::cout <<field<< left_upper_corner;
     for(int i = 0; i < 7; i++){
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_upper;
     }
     std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << right_upper_corner << '\n';
     for(int j = 7; j > 0; j--) {
+        std::cout<<j+1;
         for(int i = 0; i < 8; i++) {
 
             std::cout << line_vertical << field << figure_color_name[j][i] << field;
         }
         std::cout << line_vertical <<'\n';
-        std::cout << joint_left;
+        std::cout <<field<<joint_left;
         for (int i = 0; i < 7; i++) {
             std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_middle;
         }
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_right << '\n';
     }
+    std::cout<<'1';
     for(int i = 0; i < 8; i++) {
         std::cout << line_vertical << field << figure_color_name[0][i] << field;
     }
     std::cout << line_vertical <<'\n';
-    std::cout << left_lower_corner;
+    std::cout <<field<< left_lower_corner;
     for(int i = 0;i < 7;i++) {
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_lower;
     }
     std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << right_lower_corner <<'\n';
+
+    for(int i = 65; i < 73; i++){
+        std::cout<<field<<field<<field<<char(i)<<field;
+    }
+    std::cout<<'\n'<<figure_color_white<<" - white "<<figure_color_black<<" - black"<<'\n'<<"P - Pawn B - Bishop H - Knight R - Rook Q - Queen K - King ";
 
 
 }
