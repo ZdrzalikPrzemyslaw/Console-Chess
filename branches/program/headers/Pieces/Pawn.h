@@ -12,7 +12,7 @@ private:
     bool has_moved = false;
 public:
     int get_value() final;
-    bool can_move(std::shared_ptr<Field>) final;
+    bool can_move(std::shared_ptr<Field> field_final) final;
     using Piece::Piece;
     void set_has_moved(bool);
 };

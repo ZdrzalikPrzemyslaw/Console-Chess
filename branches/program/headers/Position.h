@@ -11,7 +11,7 @@ public:
     int col;
     bool operator == (Position &rhs);
     Position();
-    Position(int, int);
+    Position(int row, int col);
 };
 
 

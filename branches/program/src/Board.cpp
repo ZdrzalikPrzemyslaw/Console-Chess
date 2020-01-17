@@ -36,3 +36,29 @@ int Board::board_size() {
     return tmp;
 }
 
+bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
+    if(pos_beg == pos_end) return false;
+    if(pos_beg.col - pos_end.col == 0){
+        for(int i = std::min(pos_beg.row, pos_end.row) + 1; i < (std::max(pos_beg.row, pos_end.row)); i++){
+            if(this->get_field(Position(i, pos_beg.col))->get_piece() != nullptr){
+                return false;
+            }
+        }
+    }
+    if(pos_beg.row - pos_end.row == 0){
+        for(int i = std::min(pos_beg.col, pos_end.col) + 1; i < (std::max(pos_beg.col, pos_end.col)); i++){
+            if(this->get_field(Position(pos_beg.row, i))->get_piece() != nullptr){
+                return false;
+            }
+        }
+
+    }
+    if((abs(pos_beg.col - pos_end.col) - abs(pos_beg.row - pos_end.row)) == 0){
+        for(int i = std::min(pos_beg.row, pos_end.row) + 1; i < (std::max(pos_beg.row, pos_end.row)); i++){
+            if(this->get_field(Position(i, i))->get_piece() != nullptr){
+                return false;
+            }
+        }
+    }
+    return true;
+}

@@ -30,7 +30,7 @@ public:
 private:
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
-   // std::vector<std::shared_ptr<Player>> players;
+    std::vector<std::shared_ptr<Player>> players;
 public:
     void save_game();
     void load_game();
