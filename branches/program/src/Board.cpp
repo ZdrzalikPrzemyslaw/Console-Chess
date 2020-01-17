@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Board.h"
 #include "Field.h"
+#include "Pieces/Piece.h"
 
 
 Board::Board() {
@@ -37,7 +38,12 @@ int Board::board_size() {
 }
 
 bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
-    if(pos_beg == pos_end) return false;
+    if(pos_beg == pos_end) {
+        return false;
+    }
+    if(this->get_field(pos_beg) && this->get_field(pos_end)->get_piece() && this->get_field(pos_beg)->get_piece()->get_is_white() == this->get_field(pos_end)->get_piece()->get_is_white()){
+        return false;
+    }
     if(pos_beg.col - pos_end.col == 0){
         for(int i = std::min(pos_beg.row, pos_end.row) + 1; i < (std::max(pos_beg.row, pos_end.row)); i++){
             if(this->get_field(Position(i, pos_beg.col))->get_piece() != nullptr){

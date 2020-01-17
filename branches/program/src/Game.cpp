@@ -32,8 +32,12 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     for (int i = 0; i < 2; i++){
         this->white_pieces.push_back(std::make_shared<Rook>(true));
         this->black_pieces.push_back(std::make_shared<Rook>(false));
+    }
+    for (int i = 0; i < 2; i++) {
         this->white_pieces.push_back(std::make_shared<Knight>(true));
         this->black_pieces.push_back(std::make_shared<Knight>(false));
+    }
+    for (int i = 0; i < 2; i++) {
         this->white_pieces.push_back(std::make_shared<Bishop>(true));
         this->black_pieces.push_back(std::make_shared<Bishop>(false));
     }

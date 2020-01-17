@@ -14,11 +14,13 @@ private:
     Position beg_position;
     Position end_position;
     std::shared_ptr<Piece> piece_in_end_position;
+    std::shared_ptr<Piece> piece_in_beg_position;
 public:
     Position get_beg_pos();
     Position get_end_pos();
     std::shared_ptr<Piece> get_piece_in_end_position();
-    Previous_Move(Position beg_position, Position end_position, std::shared_ptr<Piece> piece_in_end_position);
+    std::shared_ptr<Piece> get_piece_in_beg_position();
+    Previous_Move(Position beg_position, Position end_position, std::shared_ptr<Piece> piece_in_beg_position, std::shared_ptr<Piece> piece_in_end_position);
 };
 
 

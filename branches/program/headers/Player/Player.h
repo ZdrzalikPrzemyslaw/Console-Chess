@@ -11,15 +11,17 @@
 class Move;
 class Piece;
 class Board;
+class Previous_Move;
 
 class Player {
     bool is_white;
     int score = 0;
-    std::vector<std::shared_ptr<Move>> all_moves;
+    std::vector<std::vector<std::shared_ptr<Move>>> all_moves;
     std::vector<std::shared_ptr<Piece>> pieces;
     std::vector<std::shared_ptr<Piece>> enemy_pieces;
     std::vector<std::shared_ptr<Piece>> captured_pieces;
     std::shared_ptr<Board> current_board_state;
+    std::shared_ptr<Previous_Move> previous_move;
 public:
     void set_pieces(std::vector<std::shared_ptr<Piece>> pieces);
     void calculate_score();
@@ -33,6 +35,9 @@ public:
     virtual bool move() = 0;
     void set_enemy_pieces(std::vector<std::shared_ptr<Piece>> enemy_pieces);
     bool is_check();
+    void generate_all_moves();
+    std::vector<std::vector<std::shared_ptr<Move>>> get_all_moves();
+    bool test_move(std::shared_ptr<Move> move);
 
 };
 
