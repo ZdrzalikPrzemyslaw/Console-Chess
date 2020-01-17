@@ -7,6 +7,8 @@
 
 Field::Field(int row, int col) : position(Position(row, col)) {}
 
+Field::Field(Position position) : position(position) {}
+
 Position Field::get_position() {
     return this->position;
 }

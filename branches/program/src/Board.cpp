@@ -56,4 +56,5 @@ bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
     if((abs(pos_beg.col - pos_end.col) - abs(pos_beg.row - pos_end.row)) == 0){
 
     }
+    return true; // #TODO: fix
 }

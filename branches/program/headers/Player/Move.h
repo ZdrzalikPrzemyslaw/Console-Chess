@@ -16,8 +16,10 @@ private:
     Position end_position;
 public:
     Position get_beg_pos();
+
     Position get_end_pos();
-    Move(Position, Position);
+
+    Move(Position beg_pos, Position end_pos);
 };
 
 

@@ -17,9 +17,10 @@ private:
     std::shared_ptr<Piece> piece = nullptr;
 public:
     Position get_position();
-    Field(int, int);
+    Field(int row, int col);
+    Field(Position position); // #TODO add to uml
     std::shared_ptr<Piece> get_piece();
-    void set_piece(std::shared_ptr<Piece>);
+    void set_piece(std::shared_ptr<Piece> piece);
     bool is_taken();
 };
 

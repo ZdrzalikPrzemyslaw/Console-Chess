@@ -10,6 +10,7 @@
 
 class Move;
 class Piece;
+class Board;
 
 class Player {
     bool is_white;
@@ -17,7 +18,11 @@ class Player {
     std::vector<std::shared_ptr<Move>> all_moves;
     std::vector<std::shared_ptr<Piece>> pieces;
     std::vector<std::shared_ptr<Piece>> captured_pieces;
-    
+    std::shared_ptr<Board> current_board_state;
+public:
+    void set_pieces(std::vector<std::shared_ptr<Piece>> pieces);
+
+
 };
 
 
