@@ -45,6 +45,12 @@ BOOST_AUTO_TEST_SUITE(BoardTestSuite)
     BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(3,5)));
     BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(2,6)));
     BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(1,7), Position(1,7)));
+    test_Game_1->get_board()->get_field(Position(2,1))->set_piece(test_Game_1->get_board()->get_field(Position(1,1))->get_piece());
+    test_Game_1->get_board()->get_field(Position(1,1))->set_piece(nullptr);
+    BOOST_CHECK(!test_Game_1->get_board()->get_field(Position(1,1))->is_taken());
+    BOOST_CHECK(test_Game_1->get_board()->get_field(Position(2,1))->is_taken());
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(1,1), Position(3,1)));
+
 }
 
 

@@ -23,6 +23,7 @@ public:
     void set_pieces(std::vector<std::shared_ptr<Piece>> pieces);
     void calculate_score();
     int get_score();
+    void set_current_board_state(std::shared_ptr<Board> current_board_state);
 
 
 };

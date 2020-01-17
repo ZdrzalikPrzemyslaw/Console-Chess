@@ -17,7 +17,7 @@ private:
     bool is_white_turn;
     std::shared_ptr<Board> board;
 public:
-    std::shared_ptr<Board> get_board() const;
+    const std::shared_ptr<Board> &get_board() const;
 
     const std::vector<std::shared_ptr<Piece>> &get_white_pieces() const;
 
@@ -30,7 +30,7 @@ public:
 private:
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
-   // std::vector<std::shared_ptr<Player>> players;
+    std::vector<std::shared_ptr<Player>> players;
 public:
     void save_game();
     void load_game();

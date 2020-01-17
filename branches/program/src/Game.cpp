@@ -92,7 +92,7 @@ Game::Game(){
     //initialize();
 }
 
-std::shared_ptr<Board> Game::get_board() const {
+const std::shared_ptr<Board> &Game::get_board() const {
     return board;
 }
 /*
