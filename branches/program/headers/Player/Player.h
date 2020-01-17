@@ -21,6 +21,8 @@ class Player {
     std::shared_ptr<Board> current_board_state;
 public:
     void set_pieces(std::vector<std::shared_ptr<Piece>> pieces);
+    void calculate_score();
+    int get_score();
 
 
 };
