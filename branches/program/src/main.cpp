@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
+#include "Game.h"
 
 int main() {
-    return 0;
+    Game game;
+    game.draw();
 }

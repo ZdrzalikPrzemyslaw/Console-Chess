@@ -37,6 +37,7 @@ private:
 public:
     void save_game();
     void load_game();
+    void draw();
     void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
     void main_game_loop();
 
