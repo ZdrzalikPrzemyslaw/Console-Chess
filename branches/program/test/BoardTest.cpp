@@ -6,6 +6,7 @@
 #include <memory>
 #include "Field.h"
 #include "Board.h"
+#include "Game.h"
 // #include "test.h"
 
 
@@ -22,5 +23,10 @@ BOOST_AUTO_TEST_SUITE(BoardTestSuite)
             }
         }
     }
+
+    BOOST_AUTO_TEST_CASE(BoardTest2){
+    std::shared_ptr<Game> test_Game_1 = std::make_shared<Game>();
+    test_Game_1->initialize();
+}
 
 BOOST_AUTO_TEST_SUITE_END()
