@@ -17,7 +17,6 @@ private:
 public:
     Board();
     std::shared_ptr<Field> get_field(Position);
-    void draw();
     bool is_clear_path(Position, Position);
     std::vector<std::vector<std::shared_ptr<Field>>> get_board();
     int board_size(); // for testing only TODO : remove
