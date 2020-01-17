@@ -20,7 +20,7 @@ target_include_directories(library PUBLIC include)
 
 set(SOURCE_TEST_FILES
         program/test/master.cpp
-        program/test/FieldTest.cpp program/test/BoardTest.cpp program/test/PiecesTest.cpp)
+        program/test/FieldTest.cpp program/test/BoardTest.cpp program/test/PiecesTest.cpp program/test/PlayerTest.cpp)
 
 
 add_executable (TestChess

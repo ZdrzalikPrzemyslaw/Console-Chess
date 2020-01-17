@@ -14,7 +14,7 @@ class Board;
 
 class Player {
     bool is_white;
-    int score;
+    int score = 0;
     std::vector<std::shared_ptr<Move>> all_moves;
     std::vector<std::shared_ptr<Piece>> pieces;
     std::vector<std::shared_ptr<Piece>> captured_pieces;
@@ -24,6 +24,8 @@ public:
     void calculate_score();
     int get_score();
     void set_current_board_state(std::shared_ptr<Board> current_board_state);
+    std::shared_ptr<Board> get_current_board_state(); // #TODO: usun - do testow
+    Player(bool is_white);
 
 
 };

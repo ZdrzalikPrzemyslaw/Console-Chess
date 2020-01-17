@@ -16,6 +16,8 @@
 
 #include "Field.h"
 
+#include "Player/Player.h"
+
 #include <iostream>
 
 void Game::initialize() {
@@ -86,16 +88,23 @@ void Game::initialize() {
     this->white_pieces[15]->set_field(this->board->get_board()[0][4]);
     this->board->get_board()[7][4]->set_piece(this->black_pieces[15]);
     this->black_pieces[15]->set_field(this->board->get_board()[7][4]);
+
+    this->players.push_back(std::make_shared<Player>(true));
+    this->players.push_back(std::make_shared<Player>(false));
+
+    this->players[0]->set_pieces(this->white_pieces);
+    this->players[1]->set_pieces(this->black_pieces);
+
 }
 
 Game::Game(){
-    //initialize();
+    initialize();
 }
 
 const std::shared_ptr<Board> &Game::get_board() const {
     return board;
 }
-/*
+
 const std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces() const {
     return white_pieces;
 }
@@ -103,8 +112,12 @@ const std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces() const {
 const std::vector<std::shared_ptr<Piece>> &Game::get_black_pieces() const {
     return black_pieces;
 }
-*/
-//const std::vector<std::shared_ptr<Player>> &Game::get_players() const {
-//    return players;
-//}
+
+const std::shared_ptr<Player>& Game::get_white_player() const {
+    return this->players[0];
+}
+
+const std::shared_ptr<Player>& Game::get_black_player() const {
+    return this->players[1];
+}
 

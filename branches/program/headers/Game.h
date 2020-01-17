@@ -23,8 +23,10 @@ public:
 
     const std::vector<std::shared_ptr<Piece>> &get_black_pieces() const;
 
-    //const std::vector<std::shared_ptr<Player>> &get_players() const;
 
+    const std::shared_ptr<Player> &get_white_player() const;
+
+    const std::shared_ptr<Player> &get_black_player() const;
     Game();
 
 private:
