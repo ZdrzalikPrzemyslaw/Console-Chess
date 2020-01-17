@@ -80,16 +80,16 @@ void Player::generate_all_moves() {
         }
         vectorindex++;
     }
-//    auto i = this->all_moves.begin();
-//    auto j = i->begin();
-//    while(i != this->all_moves.end()){
-//        while(j != i->end()){
-//            if(!this->test_move(*j)){
-//                j = i->erase(j);
-//            } else ++j;
-//           }
-//        ++i;
-  //  }
+    auto i = this->all_moves.begin();
+    while(i != this->all_moves.end()){
+        auto j = i->begin();
+        while(j != i->end()){
+            if(!this->test_move(*j)){
+                j = i->erase(j);
+            } else ++j;
+           }
+        ++i;
+    }
 
 }
 
@@ -109,14 +109,12 @@ bool Player::test_move(std::shared_ptr<Move> move) {
     this->get_current_board_state()->get_field(move->get_end_pos())->set_piece(this->get_current_board_state()->get_field(move->get_beg_pos())->get_piece());
     this->get_current_board_state()->get_field(move->get_end_pos())->get_piece()->set_field(this->get_current_board_state()->get_field(move->get_end_pos()));
     this->get_current_board_state()->get_field(move->get_beg_pos())->set_piece(nullptr);
-    bool tmp = this->is_check();
+    bool tmp = !this->is_check();
     this->get_current_board_state()->get_field(move->get_beg_pos())->set_piece(this->previous_move->get_piece_in_beg_position());
     this->previous_move->get_piece_in_beg_position()->set_field(this->get_current_board_state()->get_field(move->get_beg_pos()));
     this->get_current_board_state()->get_field(move->get_end_pos())->set_piece(this->previous_move->get_piece_in_end_position());
     if(this->previous_move->get_piece_in_end_position()) {
         this->previous_move->get_piece_in_end_position()->set_field(this->get_current_board_state()->get_field(move->get_end_pos()));
     }
-    std::cout <<"Jd\n";
     return tmp;
-    return true;
 }
