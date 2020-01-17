@@ -35,10 +35,10 @@ private:
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;
 public:
+    void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
     void save_game();
     void load_game();
     void draw();
-    void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
     void main_game_loop();
 
 };

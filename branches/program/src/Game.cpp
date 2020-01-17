@@ -140,82 +140,94 @@ const std::shared_ptr<Player>& Game::get_black_player() const {
 }
 
 void Game::draw() {
-    const char left_upper_corner=218;
-    const char left_lower_corner=192;
-    const char line_horizontal=196;
-    const char line_vertical=179;
-    const char right_upper_corner=191;
-    const char right_lower_corner=217;
-    const char joint_left =195;
-    const char joint_right =180;
-    const char joint_upper =194;
-    const char joint_lower =193;
-    const char joint_middle =197;
-    const char pole =' ';
-    const char figure_name_pawn ='P';
-    const char figure_name_rook ='R';
-    const char figure_name_bishop ='B';
-    const char figure_name_knight ='H';
-    const char figure_name_king ='K';
-    const char figure_name_queen ='Q';
-    const char figure_color_white ='w';
-    const char figure_color_black ='b';
+#ifdef linux
+    const char * left_upper_corner  = u8"\u250C";
+    const char * left_lower_corner  = u8"\u2514";
+    const char * line_horizontal    = u8"\u2501";
+    const char * line_vertical      = u8"\u2502";
+    const char * right_upper_corner = u8"\u2510";
+    const char * right_lower_corner = u8"\u2519";
+    const char * joint_left         = u8"\u2520";
+    const char * joint_right        = u8"\u2525";
+    const char * joint_upper        = u8"\u2530";
+    const char * joint_lower        = u8"\u2538";
+    const char * joint_middle       = u8"\u2540";
+#elif _WIN32
+    const char left_upper_corner = char(218);
+    const char left_lower_corner = char(192);
+    const char line_horizontal = char(196);
+    const char line_vertical = char(179);
+    const char right_upper_corner = char(191);
+    const char right_lower_corner = char(217);
+    const char joint_left = char(195);
+    const char joint_right = char(180);
+    const char joint_upper = char(194);
+    const char joint_lower = char(193);
+    const char joint_middle = char(197);
+#else
+
+#endif
+    const char field = ' ';
+    const char figure_name_pawn = 'P';
+    const char figure_name_rook = 'R';
+    const char figure_name_bishop = 'B';
+    const char figure_name_knight = 'H';
+    const char figure_name_king = 'K';
+    const char figure_name_queen = 'Q';
+    const char figure_color_white = 'w';
+    const char figure_color_black = 'b';
     const std::string no_figure_on_field = "  ";
     std::vector<std::vector<std::string>> figure_color_name;
-    int index1= 0 ;
+    int index1 = 0;
     int index2 = 0;
     for(auto &i : this->board->get_board()){
         figure_color_name.push_back(std::vector<std::string>());
-        for(auto&j :i){
+        for(auto &j : i){
             figure_color_name[index2].push_back(std::string());
             auto test = this->board->get_board()[index2][index1]->get_piece();
             if(!test){
-                figure_color_name[index2][index1]=no_figure_on_field;
+                figure_color_name[index2][index1] = no_figure_on_field;
             }
             else{
                 if(test->get_is_white()){
-                    figure_color_name[index2][index1]=figure_color_white;
+                    figure_color_name[index2][index1] = figure_color_white;
                 }
                 else{
-                    figure_color_name[index2][index1]=figure_color_black;
+                    figure_color_name[index2][index1] = figure_color_black;
                 }
                 if(dynamic_cast<Bishop*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_bishop;
+                    figure_color_name[index2][index1] += figure_name_bishop;
                 }
                 else if (dynamic_cast<King*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_king;
+                    figure_color_name[index2][index1] += figure_name_king;
                 }
                 else if(dynamic_cast<Knight*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_knight;
+                    figure_color_name[index2][index1] += figure_name_knight;
                 }
                 else if (dynamic_cast<Pawn*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_pawn;
+                    figure_color_name[index2][index1] += figure_name_pawn;
                 }
                 else if(dynamic_cast<Queen*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_queen;
+                    figure_color_name[index2][index1] += figure_name_queen;
                 }
                 else if(dynamic_cast<Rook*>(test.get())){
-                    figure_color_name[index2][index1]+=figure_name_rook;
+                    figure_color_name[index2][index1] += figure_name_rook;
                 }
-
-
-
             }
             index1++;
         }
-        index1=0;
+        index1 = 0;
         index2++;
     }
-
     std::cout << left_upper_corner;
-    for(int i=0; i<7; i++){
+    for(int i = 0; i < 7; i++){
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_upper;
     }
     std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << right_upper_corner << '\n';
-    for(int j=0; j<7; j++) {
-        for(int i=0;i<8;i++) {
+    for(int j = 7; j > 0; j--) {
+        for(int i = 0; i < 8; i++) {
 
-            std::cout << line_vertical << pole << figure_color_name[j][i]<< pole;
+            std::cout << line_vertical << field << figure_color_name[j][i] << field;
         }
         std::cout << line_vertical <<'\n';
         std::cout << joint_left;
@@ -224,12 +236,12 @@ void Game::draw() {
         }
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_right << '\n';
     }
-    for(int i=0; i<8; i++) {
-        std::cout << line_vertical << pole << figure_color_name[7][i]<< pole;
+    for(int i = 0; i < 8; i++) {
+        std::cout << line_vertical << field << figure_color_name[0][i] << field;
     }
     std::cout << line_vertical <<'\n';
     std::cout << left_lower_corner;
-    for(int i=0;i<7;i++) {
+    for(int i = 0;i < 7;i++) {
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_lower;
     }
     std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << right_lower_corner <<'\n';

@@ -5,6 +5,7 @@
 #ifndef POBI_PROJ_SZACHY_PIECE_H
 #define POBI_PROJ_SZACHY_PIECE_H
 #include "memory"
+#include <climits>
 class Field;
 
 const int pawn_value = 1;
