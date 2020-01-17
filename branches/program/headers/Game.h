@@ -17,7 +17,7 @@ private:
     bool is_white_turn;
     std::shared_ptr<Board> board;
 public:
-    const std::shared_ptr<Board> &get_board() const;
+    std::shared_ptr<Board> get_board() const;
 
     const std::vector<std::shared_ptr<Piece>> &get_white_pieces() const;
 

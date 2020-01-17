@@ -91,11 +91,11 @@ void Game::initialize() {
 Game::Game(){
     //initialize();
 }
-/*
-const std::shared_ptr<Board> &Game::get_board() const {
+
+std::shared_ptr<Board> Game::get_board() const {
     return board;
 }
-
+/*
 const std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces() const {
     return white_pieces;
 }
@@ -103,9 +103,8 @@ const std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces() const {
 const std::vector<std::shared_ptr<Piece>> &Game::get_black_pieces() const {
     return black_pieces;
 }
-
+*/
 //const std::vector<std::shared_ptr<Player>> &Game::get_players() const {
 //    return players;
 //}
 
- */

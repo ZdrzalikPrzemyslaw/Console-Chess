@@ -27,6 +27,26 @@ BOOST_AUTO_TEST_SUITE(BoardTestSuite)
     BOOST_AUTO_TEST_CASE(BoardTest2){
     std::shared_ptr<Game> test_Game_1 = std::make_shared<Game>();
     test_Game_1->initialize();
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,1), Position(5,5)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(2,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(3,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(4,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(4,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(5,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(6,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(0,0), Position(7,0)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(1,0), Position(7,0)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,0), Position(6,0)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,0), Position(6,5)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(1,0), Position(7,6)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(3,5)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(4,4)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(3,5)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(3,5)));
+    BOOST_CHECK(test_Game_1->get_board()->is_clear_path(Position(1,7), Position(2,6)));
+    BOOST_CHECK(!test_Game_1->get_board()->is_clear_path(Position(1,7), Position(1,7)));
 }
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
