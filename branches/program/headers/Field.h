@@ -14,7 +14,7 @@ class Piece;
 class Field {
 private:
     Position position;
-    std::shared_ptr<Piece> piece;
+    std::shared_ptr<Piece> piece = nullptr;
 public:
     Position get_position();
     Field(int, int);
