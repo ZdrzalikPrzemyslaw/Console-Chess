@@ -16,14 +16,9 @@ class Player;
 
 class Game {
 private:
-    bool is_white_turn;
     std::shared_ptr<Board> board;
 public:
     std::shared_ptr<Board> &get_board();
-
-    std::vector<std::shared_ptr<Piece>> &get_white_pieces();
-
-    std::vector<std::shared_ptr<Piece>> &get_black_pieces();
 
     const std::shared_ptr<Player> &get_white_player() const;
 
