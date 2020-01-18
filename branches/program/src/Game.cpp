@@ -120,11 +120,11 @@ Game::Game(bool is_ai_player1, bool is_ai_player2, bool load) {
     if(!load) {
         initialize(is_ai_player1, is_ai_player2);
         this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
+        this->is_white_turn = true;
     }
     else{
         load_game();
     }
-    this->is_white_turn = true;
 }
 
 std::shared_ptr<Board> & Game::get_board()  {
