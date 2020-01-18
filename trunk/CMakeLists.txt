@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.4)
+
 project(pobi_proj_szachy)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -10,7 +11,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g3 -gdwarf-4")
 find_package (Boost 1.60.0 COMPONENTS "unit_test_framework" REQUIRED)
 
 set(SOURCE_FILES
-        program/src/Field.cpp program/headers/Field.h program/headers/Position.h program/src/Position.cpp program/src/Board.cpp program/headers/Board.h program/src/Pieces/Piece.cpp program/headers/Pieces/Piece.h program/src/Pieces/Pawn.cpp program/headers/Pieces/Pawn.h program/src/Pieces/Queen.cpp program/headers/Pieces/Queen.h program/src/Pieces/Rook.cpp program/headers/Pieces/Rook.h program/src/Pieces/Knight.cpp program/headers/Pieces/Knight.h program/src/Pieces/Bishop.cpp program/headers/Pieces/Bishop.h program/src/Pieces/King.cpp program/headers/Pieces/King.h)
+        program/src/Field.cpp program/headers/Field.h program/headers/Position.h program/src/Position.cpp program/src/Board.cpp program/headers/Board.h program/src/Pieces/Piece.cpp program/headers/Pieces/Piece.h program/src/Pieces/Pawn.cpp program/headers/Pieces/Pawn.h program/src/Pieces/Queen.cpp program/headers/Pieces/Queen.h program/src/Pieces/Rook.cpp program/headers/Pieces/Rook.h program/src/Pieces/Knight.cpp program/headers/Pieces/Knight.h program/src/Pieces/Bishop.cpp program/headers/Pieces/Bishop.h program/src/Pieces/King.cpp program/headers/Pieces/King.h program/src/Game.cpp program/headers/Game.h program/src/Player/Player.cpp program/headers/Player/Player.h program/src/Player/Move.cpp program/headers/Player/Move.h program/src/Player/Previous_Move.cpp program/headers/Player/Previous_Move.h program/src/Player/Human.cpp program/headers/Player/Human.h program/src/Player/AI.cpp program/headers/Player/AI.h)
 
 add_library(library ${SOURCE_FILES})
 
@@ -19,7 +20,7 @@ target_include_directories(library PUBLIC include)
 
 set(SOURCE_TEST_FILES
         program/test/master.cpp
-        program/test/FieldTest.cpp program/test/BoardTest.cpp program/test/PiecesTest.cpp)
+        program/test/FieldTest.cpp program/test/BoardTest.cpp program/test/PiecesTest.cpp program/test/PlayerTest.cpp)
 
 
 add_executable (TestChess

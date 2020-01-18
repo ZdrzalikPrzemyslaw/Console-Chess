@@ -5,6 +5,7 @@
 #ifndef POBI_PROJ_SZACHY_PIECE_H
 #define POBI_PROJ_SZACHY_PIECE_H
 #include "memory"
+#include <climits>
 class Field;
 
 const int pawn_value = 1;
@@ -22,10 +23,10 @@ private:
 public:
     virtual int get_value() = 0;
     bool get_is_white();
-    virtual bool can_move(std::shared_ptr<Field>) = 0;
-    explicit Piece(bool);
+    virtual bool can_move(std::shared_ptr<Field> field_final) = 0;
+    explicit Piece(bool is_white);
     bool is_on_a_field();
-    void set_field(std::shared_ptr<Field>);
+    void set_field(std::shared_ptr<Field> new_field);
     std::shared_ptr<Field> get_field();
 };
 
