@@ -39,7 +39,7 @@ bool Human::move() {
         else {
             std::cout << "avaiable moves for this piece:" << "\n";
             for (auto &i : avaiable_moves) {
-                std::cout << "Row: " << i->get_end_pos().row + 1<< " Col: " << char(i->get_end_pos().col + 'A') << "\n";
+                std::cout << "Col: " << char(i->get_end_pos().col + 'A')<< " Row: " << i->get_end_pos().row + 1 << "\n";
             }
             input.clear();
             choose_piece.row = -1;
