@@ -24,12 +24,12 @@ public:
 
     const std::shared_ptr<Player> &get_black_player() const;
 
-    Game(); // #TODO : add to uml
+    Game();
 
     Game(bool is_ai_player1, bool is_ai_player2, bool load);
 
 private:
-    bool is_white_turn; // TODO : add to uml
+    bool is_white_turn;
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;

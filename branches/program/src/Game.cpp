@@ -108,12 +108,6 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     }else{
         this->players.push_back(std::make_shared<AI>(false, this->black_pieces, this->white_pieces, this->get_board()));
     }
-//    std::vector<std::shared_ptr<Piece>> &vector_ref_white = this->white_pieces;
-//    std::vector<std::shared_ptr<Piece>> &vector_ref_black = this->black_pieces;
-//    this->get_white_player()->set_pieces(vector_ref_white);
-//    this->get_white_player()->set_enemy_pieces(vector_ref_black);
-//    this->get_black_player()->set_pieces(vector_ref_white);
-//    this->get_black_player()->set_enemy_pieces(vector_ref_black);
 }
 
 Game::Game(){
