@@ -117,6 +117,7 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
 
 Game::Game(){
     initialize();
+    this->rentalDateTime = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
 }
 
 Game::Game(bool is_ai_player1, bool is_ai_player2) {

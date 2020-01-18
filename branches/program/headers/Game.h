@@ -7,6 +7,8 @@
 
 #include <memory>
 #include <vector>
+#include <boost/date_time/local_time/local_date_time.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 class Board;
 class Piece;
@@ -35,6 +37,8 @@ private:
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;
+    boost::posix_time::ptime rentalDateTime;
+    boost::posix_time::ptime returnDateTime;
 public:
     void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
 
