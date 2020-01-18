@@ -41,7 +41,7 @@ bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
     if(pos_beg == pos_end) {
         return false;
     }
-    if(this->get_field(pos_beg) && this->get_field(pos_end)->get_piece() && this->get_field(pos_beg)->get_piece()->get_is_white() == this->get_field(pos_end)->get_piece()->get_is_white()){
+    if(this->get_field(pos_beg)->get_piece() && this->get_field(pos_end)->get_piece() && this->get_field(pos_beg)->get_piece()->get_is_white() == this->get_field(pos_end)->get_piece()->get_is_white()){
         return false;
     }
     if(pos_beg.col - pos_end.col == 0){
@@ -59,10 +59,41 @@ bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
         }
 
     }
-    if((abs(pos_beg.col - pos_end.col) - abs(pos_beg.row - pos_end.row)) == 0){
-        for(int i = std::min(pos_beg.row, pos_end.row) + 1; i < (std::max(pos_beg.row, pos_end.row)); i++){
-            if(this->get_field(Position(i, i))->get_piece() != nullptr){
-                return false;
+    if((abs(pos_beg.col - pos_end.col) - abs(pos_beg.row - pos_end.row)) == 0) {
+        if(pos_end.col > pos_beg.col && (pos_end.row > pos_beg.row)){
+            int change = 1;
+            while(pos_beg.col + change != pos_end.col){
+                if(this->get_field(Position(pos_beg.row + change, pos_beg.col + change))->get_piece() != nullptr){
+                    return false;
+                }
+                change++;
+            }
+        }
+        if(pos_end.col < pos_beg.col && (pos_end.row > pos_beg.row)){
+            int change = 1;
+            while(pos_beg.col - change != pos_end.col){
+                if(this->get_field(Position(pos_beg.row + change, pos_beg.col - change))->get_piece() != nullptr){
+                    return false;
+                }
+                change++;
+            }
+        }
+        if(pos_end.col > pos_beg.col && (pos_end.row < pos_beg.row)){
+            int change = 1;
+            while(pos_beg.col + change != pos_end.col){
+                if(this->get_field(Position(pos_beg.row - change, pos_beg.col + change))->get_piece() != nullptr){
+                    return false;
+                }
+                change++;
+            }
+        }
+        if(pos_end.col < pos_beg.col && (pos_end.row < pos_beg.row)){
+            int change = 1;
+            while(pos_beg.col - change != pos_end.col){
+                if(this->get_field(Position(pos_beg.row - change, pos_beg.col - change))->get_piece() != nullptr){
+                    return false;
+                }
+                change++;
             }
         }
     }
