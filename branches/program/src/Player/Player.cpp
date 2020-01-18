@@ -173,14 +173,10 @@ void Player::queening(Position position) {
         }else ++it;
 
     }
+
     this->pieces.push_back(new_queen);
 
     this->get_current_board_state()->get_field(position)->get_piece()->set_field(nullptr);
     this->get_current_board_state()->get_field(position)->set_piece(new_queen);
     this->get_current_board_state()->get_field(position)->get_piece()->set_field(this->current_board_state->get_field(position));
-
-    std::cout << "\n\n\n\n\n" << "QUEEENING" << "\n";
-    for(auto &i :this->get_pieces()){
-        std::cout << i->get_is_white() << " " << i->is_on_a_field() << " \n";
-    }
 }

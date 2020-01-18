@@ -395,8 +395,8 @@ void Game::save_game() {
         }else{
             save_file << "Player 1 Human" << "\n";
         }
+        save_file.close();
     }
-    save_file.close();
 }
 
 void Game::load_game() {
@@ -568,8 +568,11 @@ void Game::load_game() {
                 }
             }
         }
+        save_file.close();
+    } else {
+        std::cout << "Load file not found. Generating new game (Human/Human)\n";
+        this->initialize();
     }
-    save_file.close();
 }
 
 boost::posix_time::time_duration Game::time_passed() {

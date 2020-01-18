@@ -8,6 +8,8 @@
 #include "Pieces/Piece.h"
 
 
+const int board_dimensions = 8;
+
 Board::Board() {
     for(int i = 0; i < 8; i++){
         fields.push_back(std::vector<std::shared_ptr<Field>>());
@@ -23,8 +25,13 @@ std::vector<std::vector<std::shared_ptr<Field>>> Board::get_board() {
 }
 
 std::shared_ptr<Field> Board::get_field(Position position) {
-    if(position.row  < 0 || (position.col < 0)){
-        throw std::out_of_range ("VECTOR HAS TO BE A NATURAL NUMBER");  // TODO: add error for out of range non negative+
+    if (position.row < 0 || (position.col < 0)) {
+        throw std::out_of_range(
+                "VECTOR INDEX HAS TO BE A NATURAL NUMBER");
+    }
+    if(position.row > board_dimensions - 1 || position.col > board_dimensions - 1){
+        throw std::out_of_range(
+                "VECTOR INDEX HAS TO BE SMALLER THAN BOARD DIMENSIONS - 1");
     }
     return this->fields[position.row][position.col];
 }
@@ -38,7 +45,13 @@ int Board::board_size() {
 }
 
 bool Board::is_clear_path(Position pos_beg,  Position pos_end) {
-    if(pos_beg == pos_end) {
+    try{
+        if(pos_beg == pos_end) {
+            throw std::runtime_error("attempted to check clear path in place");
+        }
+    }
+    catch(const std::runtime_error& e){
+        std::cout<< "Caught " << typeid(e).name() << " in Board::is_clear_path "<< e.what() << "\n";
         return false;
     }
     if(this->get_field(pos_beg)->get_piece() && this->get_field(pos_end)->get_piece() && this->get_field(pos_beg)->get_piece()->get_is_white() == this->get_field(pos_end)->get_piece()->get_is_white()){
