@@ -35,9 +35,6 @@ std::shared_ptr<Board> Player::get_current_board_state() {
     return this->current_board_state;
 }
 
-void Player::set_current_board_state(std::shared_ptr<Board> current_board_state) {
-    this->current_board_state = current_board_state;
-}
 
 std::vector<std::shared_ptr<Piece>> Player::get_pieces() {
     return this->pieces;
