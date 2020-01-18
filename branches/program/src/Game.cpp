@@ -129,6 +129,7 @@ Game::Game(bool is_ai_player1, bool is_ai_player2, bool load) {
     else{
         load_game();
     }
+    this->is_white_turn = true;
     this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
 }
 
@@ -265,9 +266,14 @@ void Game::draw() {
 }
 
 bool Game::main_game_loop() {
-    bool current_player;
+    int current_player;
     while(true) {
-        current_player = is_white_turn;
+        if(this->is_white_turn){
+            current_player = 0;
+        } else{
+            current_player = 1;
+        }
+
         if (players[current_player] == this->get_white_player()) {
             std::cout << "White turn: \n";
         } else {
@@ -315,7 +321,7 @@ bool Game::main_game_loop() {
         }
         this->players[current_player]->reset_all_moves();
         this->players[current_player]->get_enemy_pieces();
-        is_white_turn = !is_white_turn;
+        this->is_white_turn = !this->is_white_turn;
     }
 }
 
