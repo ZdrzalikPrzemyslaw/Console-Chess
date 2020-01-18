@@ -19,7 +19,7 @@ private:
     bool is_white_turn;
     std::shared_ptr<Board> board;
 public:
-    const std::shared_ptr<Board> &get_board() const;
+    std::shared_ptr<Board> &get_board();
 
     std::vector<std::shared_ptr<Piece>> &get_white_pieces();
 
@@ -37,8 +37,8 @@ private:
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;
-    boost::posix_time::ptime rentalDateTime;
-    boost::posix_time::ptime returnDateTime;
+    boost::posix_time::ptime game_begin_time;
+    boost::posix_time::ptime game_end_time;
 public:
     void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
 

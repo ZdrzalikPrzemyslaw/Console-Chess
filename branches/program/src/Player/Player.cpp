@@ -15,10 +15,6 @@
 #include <Pieces/Pawn.h>
 
 
-void Player::set_pieces(std::vector<std::shared_ptr<Piece>>& pieces) {
-    this->pieces = pieces;
-}
-
 void Player::calculate_score() {
     int tmp = 0;
     for (auto &i: this->captured_pieces) {
@@ -32,8 +28,8 @@ int Player::get_score() {
 }
 
 Player::Player(bool is_white, std::vector<std::shared_ptr<Piece>> &pieces,
-               std::vector<std::shared_ptr<Piece>> &enemy_pieces)
-        : is_white(is_white), pieces(pieces), enemy_pieces(enemy_pieces) {}
+               std::vector<std::shared_ptr<Piece>> &enemy_pieces, std::shared_ptr<Board> &current_board_state)
+        : is_white(is_white), pieces(pieces), enemy_pieces(enemy_pieces), current_board_state(current_board_state) {}
 
 std::shared_ptr<Board> Player::get_current_board_state() {
     return this->current_board_state;
@@ -41,10 +37,6 @@ std::shared_ptr<Board> Player::get_current_board_state() {
 
 void Player::set_current_board_state(std::shared_ptr<Board> current_board_state) {
     this->current_board_state = current_board_state;
-}
-
-void Player::set_enemy_pieces(std::vector<std::shared_ptr<Piece>>& enemy_pieces) {
-    this->enemy_pieces = enemy_pieces;
 }
 
 std::vector<std::shared_ptr<Piece>> Player::get_pieces() {

@@ -96,14 +96,14 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     this->board->get_board()[7][3]->set_piece(this->black_pieces[15]);
     this->black_pieces[15]->set_field(this->board->get_board()[7][3]);
     if(!is_ai_player1){
-        this->players.push_back(std::make_shared<Human>(true, this->white_pieces, this->black_pieces));
+        this->players.push_back(std::make_shared<Human>(true, this->white_pieces, this->black_pieces, this->get_board()));
     }else{
-        this->players.push_back(std::make_shared<AI>(true, this->white_pieces, this->black_pieces));
+        this->players.push_back(std::make_shared<AI>(true, this->white_pieces, this->black_pieces, this->get_board()));
     }
     if(!is_ai_player2){
-        this->players.push_back(std::make_shared<Human>(false, this->black_pieces, this->white_pieces));
+        this->players.push_back(std::make_shared<Human>(false, this->black_pieces, this->white_pieces, this->get_board()));
     }else{
-        this->players.push_back(std::make_shared<AI>(false, this->black_pieces, this->white_pieces));
+        this->players.push_back(std::make_shared<AI>(false, this->black_pieces, this->white_pieces, this->get_board()));
     }
 //    std::vector<std::shared_ptr<Piece>> &vector_ref_white = this->white_pieces;
 //    std::vector<std::shared_ptr<Piece>> &vector_ref_black = this->black_pieces;
@@ -111,20 +111,18 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
 //    this->get_white_player()->set_enemy_pieces(vector_ref_black);
 //    this->get_black_player()->set_pieces(vector_ref_white);
 //    this->get_black_player()->set_enemy_pieces(vector_ref_black);
-    this->get_white_player()->set_current_board_state(this->get_board());
-    this->get_black_player()->set_current_board_state(this->get_board());
 }
 
 Game::Game(){
     initialize();
-    this->rentalDateTime = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
+    this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
 }
 
 Game::Game(bool is_ai_player1, bool is_ai_player2) {
     initialize(is_ai_player1, is_ai_player2);
 }
 
-const std::shared_ptr<Board> & Game::get_board() const {
+ std::shared_ptr<Board> & Game::get_board()  {
     return this->board;
 }
 
