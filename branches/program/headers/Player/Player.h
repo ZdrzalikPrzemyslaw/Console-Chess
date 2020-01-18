@@ -38,6 +38,11 @@ public:
     void generate_all_moves();
     std::vector<std::vector<std::shared_ptr<Move>>> get_all_moves();
     bool test_move(std::shared_ptr<Move> move);
+    void capture(std::shared_ptr<Piece> piece);
+
+protected:
+    void do_move(std::shared_ptr<Move> move);
+
 
 };
 

@@ -21,6 +21,7 @@
 #include "Player/AI.h"
 
 #include <iostream>
+#include <iomanip>
 
 void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     auto tmp = std::make_shared<Board>();
@@ -180,8 +181,6 @@ void Game::draw() {
     std::vector<std::vector<std::string>> figure_color_name;
     int index1 = 0;
     int index2 = 0;
-    int points_white=players[0]->get_score();
-    int points_black=players[1]->get_score();
     for(auto &i : this->board->get_board()){
         figure_color_name.push_back(std::vector<std::string>());
         for(auto &j : i){
@@ -224,7 +223,8 @@ void Game::draw() {
         index1 = 0;
         index2++;
     }
-    std::cout<<'\n'<<"Player White: "<<points_white<<"      Player Black: "<<points_white<<'\n';
+
+    std::cout<<"\n " << std::setw(20) << std::left << "Player White: " + std::to_string(this->get_white_player()->get_score())  << "Player Black: "<<this->get_black_player()->get_score()<<'\n';
     std::cout <<field<< left_upper_corner;
     for(int i = 0; i < 7; i++){
         std::cout << line_horizontal << line_horizontal << line_horizontal << line_horizontal << joint_upper;

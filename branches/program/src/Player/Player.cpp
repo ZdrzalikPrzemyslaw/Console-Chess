@@ -118,3 +118,27 @@ bool Player::test_move(std::shared_ptr<Move> move) {
     }
     return tmp;
 }
+
+void Player::capture(std::shared_ptr<Piece> piece) {
+    try{
+        if(piece == nullptr){
+            throw std::runtime_error("Player::capture tried to capture a null pointer");
+        }
+        for (auto&i: this->pieces){
+            if (i == piece){
+                throw std::runtime_error("Player::capture tried to capture players own piece");
+            }
+        }
+        for (auto &i: this->captured_pieces){
+            if(i == piece){
+                throw std::runtime_error("Player::capture tried to capture already captured piece");
+            }
+        }
+    }
+    catch(const std::runtime_error& e){
+        std::cout<< "Caught " << typeid(e).name() << " in Player:capture "<< e.what() << "\n";
+        return;
+    }
+    this->captured_pieces.push_back(piece);
+}
+
