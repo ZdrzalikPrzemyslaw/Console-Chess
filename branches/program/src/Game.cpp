@@ -122,7 +122,7 @@ Game::Game(bool is_ai_player1, bool is_ai_player2) {
     initialize(is_ai_player1, is_ai_player2);
 }
 
- std::shared_ptr<Board> & Game::get_board()  {
+std::shared_ptr<Board> & Game::get_board()  {
     return this->board;
 }
 
@@ -286,8 +286,8 @@ bool Game::main_game_loop() {
         }
         if (dynamic_cast<Human *>(this->players[current_player].get())) {
             std::string choice = "a";
-            while (choice != "S" && (choice != "M" | choice!= "m")) {
-                std::cout << "Choose: \n"
+            while (choice != "S" && (choice != "M" || choice!= "m")) {
+                std::cout << "\nChoose: \n"
                              "1. 'S' - to save game\n"
                              "2. 'M' - to move\n";
                 std::cin >> choice;
