@@ -6,6 +6,11 @@
 #include "Position.h"
 #include "Player/Human.h"
 #include "Player/Move.h"
+#ifdef __linux__
+
+#include <limits.h>
+
+#endif
 
 
 bool Human::move() {
