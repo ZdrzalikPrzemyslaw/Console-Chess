@@ -22,6 +22,9 @@
 
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <boost/algorithm/string.hpp>
+
 
 void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     auto tmp = std::make_shared<Board>();
@@ -116,22 +119,21 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
 Game::Game(){
     initialize();
     this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
+    this->is_white_turn = true;
 }
 
-Game::Game(bool is_ai_player1, bool is_ai_player2) {
-    initialize(is_ai_player1, is_ai_player2);
+Game::Game(bool is_ai_player1, bool is_ai_player2, bool load) {
+    if(!load) {
+        initialize(is_ai_player1, is_ai_player2);
+    }
+    else{
+        load_game();
+    }
+    this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
 }
 
 std::shared_ptr<Board> & Game::get_board()  {
     return this->board;
-}
-
-std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces()  {
-    return this->white_pieces;
-}
-
-std::vector<std::shared_ptr<Piece>> &Game::get_black_pieces()  {
-    return black_pieces;
 }
 
 const std::shared_ptr<Player>& Game::get_white_player() const {
@@ -263,8 +265,9 @@ void Game::draw() {
 }
 
 bool Game::main_game_loop() {
-    bool current_player = false;
+    bool current_player;
     while(true) {
+        current_player = is_white_turn;
         if (players[current_player] == this->get_white_player()) {
             std::cout << "White turn: \n";
         } else {
@@ -301,7 +304,9 @@ bool Game::main_game_loop() {
                 }
             }
             if (choice == "S") {
-                // TODO : ADD SAVING HERE
+                this->save_game();
+                std::cout << "game saved \n";
+                return true;
             } else if (choice == "M" || choice == "m") {
                 this->players[current_player]->move();
             }
@@ -310,7 +315,268 @@ bool Game::main_game_loop() {
         }
         this->players[current_player]->reset_all_moves();
         this->players[current_player]->get_enemy_pieces();
-        current_player = !current_player;
+        is_white_turn = !is_white_turn;
     }
 }
 
+void Game::save_game() {
+    std::ofstream save_file("save_chess.txt");
+    if(save_file.good()){
+        for(auto &i: this->white_pieces){
+            if(dynamic_cast<Pawn*>(i.get())){
+                save_file <<"Pawn" << " ";
+            }
+            else if(dynamic_cast<Rook*>(i.get())) {
+                save_file << "Rook" << " ";
+            }
+            else if(dynamic_cast<Bishop*>(i.get())){
+                save_file << "Bishop" << " ";
+            }
+            else if(dynamic_cast<Knight*>(i.get())){
+                save_file << "Knight" << " ";
+            }
+            else if(dynamic_cast<Queen*>(i.get())){
+                save_file << "Queen" << " ";
+            }
+            else if(dynamic_cast<King*>(i.get())){
+                save_file << "King" << " ";
+            }
+            if(i->is_on_a_field()){
+                save_file << i->get_field()->get_position().row << " " << i->get_field()->get_position().col << "\n";
+            }
+            else{
+                save_file << "nullptr\n";
+            }
+        }
+        save_file << "\n";
+        for(auto &i: this->black_pieces){
+            if(dynamic_cast<Pawn*>(i.get())){
+                save_file <<"Pawn" << " ";
+            }
+            else if(dynamic_cast<Rook*>(i.get())) {
+                save_file << "Rook" << " ";
+            }
+            else if(dynamic_cast<Bishop*>(i.get())){
+                save_file << "Bishop" << " ";
+            }
+            else if(dynamic_cast<Knight*>(i.get())){
+                save_file << "Knight" << " ";
+            }
+            else if(dynamic_cast<Queen*>(i.get())){
+                save_file << "Queen" << " ";
+            }
+            else if(dynamic_cast<King*>(i.get())){
+                save_file << "King" << " ";
+            }
+            if(i->is_on_a_field()){
+                save_file << i->get_field()->get_position().row << " " << i->get_field()->get_position().col << "\n";
+            }
+            else{
+                save_file << "nullptr\n";
+            }
+        }
+        save_file << "\n";
+        if(this->is_white_turn){
+            save_file << "is_white_turn\n";
+        } else{
+            save_file << "is_black_turn\n";
+        }
+        save_file << "\n";
+        save_file << this->time_passed() << "\n";
+        save_file << "\n";
+        if(dynamic_cast<AI*>(this->get_white_player().get())){
+            save_file << "Player 0 AI" << "\n";
+        }else{
+            save_file << "Player 0 Human" << "\n";
+        }
+        if(dynamic_cast<AI*>(this->get_black_player().get())){
+            save_file << "Player 1 AI" << "\n";
+        }else{
+            save_file << "Player 1 Human" << "\n";
+        }
+    }
+    save_file.close();
+}
+
+void Game::load_game() {
+    std::ifstream save_file("save_chess.txt");
+    std::string input = " ";
+    std::vector<std::string> input_split;
+    if(save_file){
+        auto tmp = std::make_shared<Board>();
+        this->board = tmp;
+        while(input.length() != 0){
+            std::getline(save_file, input);
+            boost::split(input_split, input, boost::is_any_of(" "));
+            if(!input.empty()){
+                if(input_split[0] == "Pawn") {
+                    auto new_white_piece = std::make_shared<Pawn>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Rook"){
+                    auto new_white_piece = std::make_shared<Rook>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Knight"){
+                    auto new_white_piece = std::make_shared<Queen>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Bishop"){
+                    auto new_white_piece = std::make_shared<Queen>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Queen"){
+                    auto new_white_piece = std::make_shared<Queen>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "King"){
+                    auto new_white_piece = std::make_shared<King>(true);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->white_pieces.push_back(new_white_piece);
+                }
+            }
+        }
+        input = " ";
+        while(input.length() != 0){
+            std::getline(save_file, input);
+            boost::split(input_split, input, boost::is_any_of(" "));
+            if(!input.empty()){
+                if(input_split[0] == "Pawn") {
+                    auto new_white_piece = std::make_shared<Pawn>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Rook"){
+                    auto new_white_piece = std::make_shared<Rook>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Knight"){
+                    auto new_white_piece = std::make_shared<Queen>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Bishop"){
+                    auto new_white_piece = std::make_shared<Queen>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "Queen"){
+                    auto new_white_piece = std::make_shared<Queen>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+                else if(input_split[0] == "King"){
+                    auto new_white_piece = std::make_shared<King>(false);
+                    if(input_split[1] != "nullptr") {
+                        new_white_piece->set_field(
+                                this->board->get_field(Position(std::stoi(input_split[1]), std::stoi(input_split[2]))));
+                        new_white_piece->get_field()->set_piece(new_white_piece);
+                    }
+                    this->black_pieces.push_back(new_white_piece);
+                }
+            }
+        }
+        input = " ";
+        while(input.length() != 0){
+            std::getline(save_file, input);
+            boost::split(input_split, input, boost::is_any_of(" "));
+            if(!input.empty()) {
+                this->is_white_turn = input_split[0] == "is_white_turn";
+            }
+        }
+        input = " ";
+        while(input.length() != 0){
+            std::getline(save_file, input);
+            boost::split(input_split, input, boost::is_any_of(" "));
+            if(!input.empty()) {
+                this->game_begin_time = boost::posix_time::second_clock::local_time() - boost::posix_time::duration_from_string(input_split[0]);
+            }
+        }
+        input = " ";
+        while(input.length() != 0){
+            std::getline(save_file, input);
+            boost::split(input_split, input, boost::is_any_of(" "));
+            if(!input.empty()) {
+                if(input_split[1] == "0"){
+                    if(input_split[2] == "AI"){
+                        std::shared_ptr<Player> tmp = std::make_shared<AI>(true, this->white_pieces, this->black_pieces, this->get_board());
+                        this->players.push_back(tmp);
+                    }else{
+                        std::shared_ptr<Player> tmp = std::make_shared<Human>(true, this->white_pieces, this->black_pieces, this->get_board());
+                        this->players.push_back(tmp);
+                    }
+                }
+                if(input_split[1] == "1"){
+                    if(input_split[2] == "AI"){
+                        std::shared_ptr<Player> tmp = std::make_shared<AI>(false, this->black_pieces, this->white_pieces, this->get_board());
+                        this->players.push_back(tmp);
+                    }else{
+                        std::shared_ptr<Player> tmp = std::make_shared<Human>(false, this->black_pieces, this->white_pieces, this->get_board());
+                        this->players.push_back(tmp);
+                    }
+                }
+            }
+        }
+    }
+    save_file.close();
+}
+
+boost::posix_time::time_duration Game::time_passed() {
+    std::cout << " " << this->game_begin_time << " " << boost::posix_time::second_clock::local_time() << "\n";
+    return boost::posix_time::second_clock::local_time() - this->game_begin_time;
+}
+
+Game::~Game(){
+   // delete(this->game_begin_time);
+    //delete(this->game_end_time);
+}

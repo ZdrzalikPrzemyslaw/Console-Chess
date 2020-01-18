@@ -24,18 +24,21 @@ public:
 
     const std::shared_ptr<Player> &get_black_player() const;
 
-    Game();
+    Game(); // #TODO : add to uml
 
-    Game(bool is_ai_player1, bool is_ai_player2);
+    Game(bool is_ai_player1, bool is_ai_player2, bool load);
 
 private:
+    bool is_white_turn; // TODO : add to uml
     std::vector<std::shared_ptr<Piece>> white_pieces;
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;
-    boost::posix_time::ptime game_begin_time;
+    boost::posix_time::ptime game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
     boost::posix_time::ptime game_end_time;
 public:
     void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
+
+    ~Game();
 
     void save_game();
 
@@ -45,6 +48,7 @@ public:
 
     bool main_game_loop();
 
+    boost::posix_time::time_duration time_passed(); // TODO : add to uml
 };
 
 
