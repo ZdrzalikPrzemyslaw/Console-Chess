@@ -125,12 +125,12 @@ Game::Game(){
 Game::Game(bool is_ai_player1, bool is_ai_player2, bool load) {
     if(!load) {
         initialize(is_ai_player1, is_ai_player2);
+        this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
     }
     else{
         load_game();
     }
     this->is_white_turn = true;
-    this->game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
 }
 
 std::shared_ptr<Board> & Game::get_board()  {
@@ -186,6 +186,7 @@ void Game::draw() {
     std::vector<std::vector<std::string>> figure_color_name;
     int index1 = 0;
     int index2 = 0;
+    std::cout << "Elapsed time: " << this->time_passed() << "\n";
     for(auto &i : this->board->get_board()){
         figure_color_name.push_back(std::vector<std::string>());
         for(auto &j : i){
@@ -546,7 +547,7 @@ void Game::load_game() {
             boost::split(input_split, input, boost::is_any_of(" "));
             if(!input.empty()) {
                 this->game_begin_time = boost::posix_time::second_clock::local_time() - boost::posix_time::duration_from_string(input_split[0]);
-            }
+              }
         }
         input = " ";
         while(input.length() != 0){
@@ -578,7 +579,6 @@ void Game::load_game() {
 }
 
 boost::posix_time::time_duration Game::time_passed() {
-    std::cout << " " << this->game_begin_time << " " << boost::posix_time::second_clock::local_time() << "\n";
     return boost::posix_time::second_clock::local_time() - this->game_begin_time;
 }
 

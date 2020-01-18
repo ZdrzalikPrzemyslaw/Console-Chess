@@ -34,7 +34,6 @@ private:
     std::vector<std::shared_ptr<Piece>> black_pieces;
     std::vector<std::shared_ptr<Player>> players;
     boost::posix_time::ptime game_begin_time = boost::posix_time::ptime(boost::posix_time::second_clock::local_time());
-    boost::posix_time::ptime game_end_time;
 public:
     void initialize(bool is_ai_player1 = false, bool is_ai_player2 = false);
 
