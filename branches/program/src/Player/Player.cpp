@@ -11,9 +11,11 @@
 #include "iostream"
 #include "Player/Move.h"
 #include "Player/Previous_Move.h"
+#include <cstdlib>
+#include <Pieces/Pawn.h>
 
 
-void Player::set_pieces(std::vector<std::shared_ptr<Piece>> pieces) {
+void Player::set_pieces(std::vector<std::shared_ptr<Piece>>& pieces) {
     this->pieces = pieces;
 }
 
@@ -29,7 +31,9 @@ int Player::get_score() {
     return this->score;
 }
 
-Player::Player(bool is_white) : is_white(is_white) {}
+Player::Player(bool is_white, std::vector<std::shared_ptr<Piece>> &pieces,
+               std::vector<std::shared_ptr<Piece>> &enemy_pieces)
+        : is_white(is_white), pieces(pieces), enemy_pieces(enemy_pieces) {}
 
 std::shared_ptr<Board> Player::get_current_board_state() {
     return this->current_board_state;
@@ -39,7 +43,7 @@ void Player::set_current_board_state(std::shared_ptr<Board> current_board_state)
     this->current_board_state = current_board_state;
 }
 
-void Player::set_enemy_pieces(std::vector<std::shared_ptr<Piece>> enemy_pieces) {
+void Player::set_enemy_pieces(std::vector<std::shared_ptr<Piece>>& enemy_pieces) {
     this->enemy_pieces = enemy_pieces;
 }
 
@@ -137,8 +141,57 @@ void Player::capture(std::shared_ptr<Piece> piece) {
     }
     catch(const std::runtime_error& e){
         std::cout<< "Caught " << typeid(e).name() << " in Player:capture "<< e.what() << "\n";
+        exit(113);
         return;
     }
     this->captured_pieces.push_back(piece);
 }
 
+void Player::do_move(std::shared_ptr<Move> move) {
+    if(auto x = dynamic_cast<Pawn*>(this->current_board_state->get_field(move->get_beg_pos())->get_piece().get())){
+        x->set_has_moved(true);
+    }
+    if(this->current_board_state->get_field(move->get_end_pos())->get_piece()){
+        capture(this->current_board_state->get_field(move->get_end_pos())->get_piece());
+        this->current_board_state->get_field(move->get_end_pos())->get_piece()->set_field(nullptr);
+    }
+    this->current_board_state->get_field(move->get_end_pos())->set_piece(this->current_board_state->get_field(move->get_beg_pos())->get_piece());
+    this->current_board_state->get_field(move->get_end_pos())->get_piece()->set_field( this->current_board_state->get_field(move->get_end_pos()));
+    this->current_board_state->get_field(move->get_beg_pos())->set_piece(nullptr);
+}
+
+void Player::reset_all_moves() {
+    this->all_moves.clear();
+}
+
+int Player::get_amount_of_moves() {
+    int tmp = 0;
+    for(auto &i : this->get_all_moves()){
+            tmp += i.size();
+    }
+    return tmp;
+}
+
+void Player::queening(Position position) {
+    if(!dynamic_cast<Pawn*>(this->current_board_state->get_field(position)->get_piece().get())){
+        return;
+    }
+    std::shared_ptr<Piece> new_queen = std::make_shared<Queen>(this->current_board_state->get_field(position)->get_piece()->get_is_white());
+    auto it = this->pieces.begin();
+    while(it != this->pieces.end()){
+        if (*it == this->current_board_state->get_field(position)->get_piece()){
+            it = this->pieces.erase(it);
+        }else ++it;
+
+    }
+    this->pieces.push_back(new_queen);
+
+    this->get_current_board_state()->get_field(position)->get_piece()->set_field(nullptr);
+    this->get_current_board_state()->get_field(position)->set_piece(new_queen);
+    this->get_current_board_state()->get_field(position)->get_piece()->set_field(this->current_board_state->get_field(position));
+
+    std::cout << "\n\n\n\n\n" << "QUEEENING" << "\n";
+    for(auto &i :this->get_pieces()){
+        std::cout << i->get_is_white() << " " << i->is_on_a_field() << " \n";
+    }
+}

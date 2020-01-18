@@ -96,20 +96,23 @@ void Game::initialize(bool is_ai_player1, bool is_ai_player2) {
     this->board->get_board()[7][3]->set_piece(this->black_pieces[15]);
     this->black_pieces[15]->set_field(this->board->get_board()[7][3]);
     if(!is_ai_player1){
-        this->players.push_back(std::make_shared<Human>(true));
+        this->players.push_back(std::make_shared<Human>(true, this->white_pieces, this->black_pieces));
     }else{
-        this->players.push_back(std::make_shared<AI>(true));
+        this->players.push_back(std::make_shared<AI>(true, this->white_pieces, this->black_pieces));
     }
     if(!is_ai_player2){
-        this->players.push_back(std::make_shared<Human>(false));
+        this->players.push_back(std::make_shared<Human>(false, this->black_pieces, this->white_pieces));
     }else{
-        this->players.push_back(std::make_shared<AI>(false));
+        this->players.push_back(std::make_shared<AI>(false, this->black_pieces, this->white_pieces));
     }
-
-    this->get_white_player()->set_pieces(this->white_pieces);
-    this->get_white_player()->set_enemy_pieces(this->black_pieces);
-    this->get_black_player()->set_pieces(this->black_pieces);
-    this->get_black_player()->set_enemy_pieces(this->white_pieces);
+//    std::vector<std::shared_ptr<Piece>> &vector_ref_white = this->white_pieces;
+//    std::vector<std::shared_ptr<Piece>> &vector_ref_black = this->black_pieces;
+//    this->get_white_player()->set_pieces(vector_ref_white);
+//    this->get_white_player()->set_enemy_pieces(vector_ref_black);
+//    this->get_black_player()->set_pieces(vector_ref_white);
+//    this->get_black_player()->set_enemy_pieces(vector_ref_black);
+    this->get_white_player()->set_current_board_state(this->get_board());
+    this->get_black_player()->set_current_board_state(this->get_board());
 }
 
 Game::Game(){
@@ -120,15 +123,15 @@ Game::Game(bool is_ai_player1, bool is_ai_player2) {
     initialize(is_ai_player1, is_ai_player2);
 }
 
-const std::shared_ptr<Board> &Game::get_board() const {
-    return board;
+const std::shared_ptr<Board> & Game::get_board() const {
+    return this->board;
 }
 
-const std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces() const {
-    return white_pieces;
+std::vector<std::shared_ptr<Piece>> &Game::get_white_pieces()  {
+    return this->white_pieces;
 }
 
-const std::vector<std::shared_ptr<Piece>> &Game::get_black_pieces() const {
+std::vector<std::shared_ptr<Piece>> &Game::get_black_pieces()  {
     return black_pieces;
 }
 
@@ -258,7 +261,57 @@ void Game::draw() {
         std::cout<<field<<field<<field<<char(i)<<field;
     }
     std::cout<<'\n'<<figure_color_white<<" - white "<<figure_color_black<<" - black"<<'\n'<<"P - Pawn B - Bishop H - Knight R - Rook Q - Queen K - King ";
+}
 
-
+bool Game::main_game_loop() {
+    bool current_player = false;
+    while(true) {
+        if (players[current_player] == this->get_white_player()) {
+            std::cout << "White turn: \n";
+        } else {
+            std::cout << "Black turn: \n";
+        }
+        this->players[!current_player]->calculate_score();
+        this->draw();
+        this->players[current_player]->generate_all_moves();
+        if (this->players[current_player]->get_amount_of_moves() == 0) {
+            if (this->players[current_player]->is_check()) {
+                // checkmate
+                std::cout << "\ngame over, checkmate\n";
+                return true;
+            } else {
+                // stalemate
+                std::cout << "\ngame over, stalemate\n";
+                return false;
+            }
+        }
+        if (dynamic_cast<Human *>(this->players[current_player].get())) {
+            std::string choice = "a";
+            while (choice != "S" && (choice != "M" | choice!= "m")) {
+                std::cout << "Choose: \n"
+                             "1. 'S' - to save game\n"
+                             "2. 'M' - to move\n";
+                std::cin >> choice;
+                while (!std::cin.good()) {
+                    std::cin.clear();
+                    std::cin.ignore(INT_MAX, '\n');
+                    std::cout << "Choose: \n"
+                                 "1. 'S' - to save game\n"
+                                 "2. 'M' - to move\n";
+                    std::cin >> choice;
+                }
+            }
+            if (choice == "S") {
+                // TODO : ADD SAVING HERE
+            } else if (choice == "M" || choice == "m") {
+                this->players[current_player]->move();
+            }
+        } else {
+            this->players[current_player]->move();
+        }
+        this->players[current_player]->reset_all_moves();
+        this->players[current_player]->get_enemy_pieces();
+        current_player = !current_player;
+    }
 }
 

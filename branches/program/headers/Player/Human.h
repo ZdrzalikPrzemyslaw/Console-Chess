@@ -7,11 +7,14 @@
 
 
 #include "Player.h"
+#include "Position.h"
 
 class Human : public Player {
 public:
     bool move() override;
     using Player::Player;
+private:
+    Position parse_input_to_position(std::string input);
 };
 
 
