@@ -44,7 +44,7 @@ target_link_libraries (TestChess
         )
 IF(WIN32)
     target_link_libraries (TestChess
-            -lbcrypt
+           # -lbcrypt
             )
 ENDIF(WIN32)
 
@@ -53,7 +53,7 @@ target_link_libraries (pobi_proj_szachy
         )
 IF(WIN32)
     target_link_libraries (pobi_proj_szachy
-            -lbcrypt
+           # -lbcrypt
             )
 ENDIF(WIN32)
 
