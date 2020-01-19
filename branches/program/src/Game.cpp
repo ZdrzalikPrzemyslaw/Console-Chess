@@ -196,24 +196,25 @@ void Game::draw() {
                 else{
                     figure_color_name[index2][index1] = figure_color_black;
                 }
-                if(dynamic_cast<Bishop*>(test.get())){
-                    figure_color_name[index2][index1] += figure_name_bishop;
-                }
-                else if (dynamic_cast<King*>(test.get())){
-                    figure_color_name[index2][index1] += figure_name_king;
-                }
-                else if(dynamic_cast<Knight*>(test.get())){
-                    figure_color_name[index2][index1] += figure_name_knight;
-                }
-                else if (dynamic_cast<Pawn*>(test.get())){
+                if (dynamic_cast<Pawn*>(test.get())){
                     figure_color_name[index2][index1] += figure_name_pawn;
-                }
-                else if(dynamic_cast<Queen*>(test.get())){
-                    figure_color_name[index2][index1] += figure_name_queen;
                 }
                 else if(dynamic_cast<Rook*>(test.get())){
                     figure_color_name[index2][index1] += figure_name_rook;
                 }
+                else if(dynamic_cast<Knight*>(test.get())){
+                    figure_color_name[index2][index1] += figure_name_knight;
+                }
+                else if(dynamic_cast<Bishop*>(test.get())){
+                    figure_color_name[index2][index1] += figure_name_bishop;
+                }
+                else if(dynamic_cast<Queen*>(test.get())){
+                    figure_color_name[index2][index1] += figure_name_queen;
+                }
+                else if (dynamic_cast<King*>(test.get())){
+                    figure_color_name[index2][index1] += figure_name_king;
+                }
+
 
 
 
@@ -352,7 +353,7 @@ void Game::save_game() {
         save_file << "\n";
         for(auto &i: this->black_pieces){
             if(dynamic_cast<Pawn*>(i.get())){
-                save_file <<"Pawn" << " ";
+                save_file << "Pawn" << " ";
             }
             else if(dynamic_cast<Rook*>(i.get())) {
                 save_file << "Rook" << " ";

@@ -31,7 +31,7 @@ bool AI::move() {
         }
     }
     catch(const std::runtime_error& e){
-        std::cout<< "Caught " << typeid(e).name() << " in AI::move "<< e.what() << "\n";
+        std::cout << "Caught " << typeid(e).name() << " in AI::move " << e.what() << "\n";
         return false;
     }
     for(auto &i: this->get_all_moves()){

@@ -32,7 +32,6 @@ BOOST_AUTO_TEST_CASE(Previous_MoveTest1) {
         BOOST_CHECK(test_p_move1->get_end_pos() == pos2);
         BOOST_CHECK(test_pawn1 == test_p_move1->get_piece_in_beg_position());
         BOOST_CHECK(test_pawn2 == test_p_move1->get_piece_in_end_position());
-
     }
 
 

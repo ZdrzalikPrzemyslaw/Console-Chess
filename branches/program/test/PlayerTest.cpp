@@ -52,10 +52,6 @@ BOOST_AUTO_TEST_CASE(PlayerTest1) {
 
 }
 
-    BOOST_AUTO_TEST_CASE(PlayerTest4) {
-    Game game;
-    game.get_black_player()->capture(game.get_board()->get_field(Position(0,0))->get_piece());
-}
 
 
 BOOST_AUTO_TEST_SUITE_END()

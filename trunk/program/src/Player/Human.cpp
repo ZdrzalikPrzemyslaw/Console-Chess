@@ -6,6 +6,9 @@
 #include "Position.h"
 #include "Player/Human.h"
 #include "Player/Move.h"
+#include "Board.h"
+#include "Pieces/Piece.h"
+#include "Field.h"
 #ifdef __linux__
 
 #include <limits.h>
@@ -66,8 +69,13 @@ bool Human::move() {
                     for (auto &i : avaiable_moves) {
                         if(i->get_end_pos() == choose_piece){
                             do_move(i);
+                            if (i->get_end_pos().row == 7 && this->get_current_board_state()->get_field(i->get_end_pos())->get_piece()->get_is_white()){
+                                this->queening(i->get_end_pos());
+                            }
+                            else if(i->get_end_pos().row == 0 && !this->get_current_board_state()->get_field(i->get_end_pos())->get_piece()->get_is_white()){
+                                this->queening(i->get_end_pos());
+                            }
                             return true;
-                            is_in_avaiable_moves = true;
                         }
                     }
 

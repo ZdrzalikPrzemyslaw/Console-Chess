@@ -183,6 +183,7 @@ BOOST_AUTO_TEST_SUITE(PieceTestSuite)
     BOOST_AUTO_TEST_CASE(knight_test){
         std::shared_ptr<Board> test_board1 = std::make_shared<Board>();
         std::shared_ptr<Piece> test_knight1 = std::make_shared<Knight>(true);
+        BOOST_CHECK(test_knight1->get_is_white());
         test_knight1->set_field(test_board1->get_field(test_pos4));    // Position test_pos4(2,2);
         test_board1->get_field(test_pos4)->set_piece(test_knight1);
         BOOST_CHECK_EQUAL(test_knight1->get_field(), test_board1->get_field(test_pos4));

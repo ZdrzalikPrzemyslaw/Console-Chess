@@ -68,6 +68,14 @@ BOOST_AUTO_TEST_SUITE(BoardTestSuite)
 
 }
 
+    BOOST_AUTO_TEST_CASE(BoardTest3) {
+    Position position1(-1,-1);
+    Position position2(8,8);
+    std::shared_ptr<Board> test_board = std::make_shared<Board>();
+    BOOST_CHECK_THROW(test_board->get_field(position1), std::out_of_range);
+    BOOST_CHECK_THROW(test_board->get_field(position2), std::out_of_range);
+    }
+
 
 
 BOOST_AUTO_TEST_SUITE_END()

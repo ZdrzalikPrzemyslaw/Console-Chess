@@ -91,7 +91,7 @@ std::vector<std::vector<std::shared_ptr<Move>>> Player::get_all_moves() {
 }
 
 bool Player::test_move(std::shared_ptr<Move> move) {
-        this->previous_move = std::make_shared<Previous_Move>(move->get_beg_pos(), move->get_end_pos(), this->current_board_state->get_field(move->get_beg_pos())->get_piece(),
+    this->previous_move = std::make_shared<Previous_Move>(move->get_beg_pos(), move->get_end_pos(), this->current_board_state->get_field(move->get_beg_pos())->get_piece(),
             this->current_board_state->get_field(move->get_end_pos())->get_piece());
     if(!previous_move->get_piece_in_beg_position()) {
         return false;
@@ -131,7 +131,6 @@ void Player::capture(std::shared_ptr<Piece> piece) {
     catch(const std::runtime_error& e){
         std::cout<< "Caught " << typeid(e).name() << " in Player:capture "<< e.what() << "\n";
         exit(113);
-        return;
     }
     this->captured_pieces.push_back(piece);
 }
