@@ -26,7 +26,7 @@ public:
 
     Game();
 
-    Game(bool is_ai_player1, bool is_ai_player2, bool load);
+    Game(bool is_ai_player1, bool is_ai_player2, bool load = false);
 
 private:
     bool is_white_turn;
