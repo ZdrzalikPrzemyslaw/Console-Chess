@@ -300,14 +300,14 @@ bool Game::main_game_loop() {
                     std::cin.clear();
                     std::cin.ignore(INT_MAX, '\n');
                     std::cout << "Choose: \n"
-                                 "1. 'S' - to save game\n"
+                                 "1. 'S' - to save game and exit\n"
                                  "2. 'M' - to move\n";
                     std::cin >> choice;
                 }
             }
             if (choice == "S") {
                 this->save_game();
-                std::cout << "game saved \n";
+                std::cout << "game saved, exiting \n";
                 return true;
             } else if (choice == "M" || choice == "m") {
                 this->players[current_player]->move();
@@ -316,7 +316,6 @@ bool Game::main_game_loop() {
             this->players[current_player]->move();
         }
         this->players[current_player]->reset_all_moves();
-        this->players[current_player]->get_enemy_pieces();
         this->is_white_turn = !this->is_white_turn;
     }
 }
