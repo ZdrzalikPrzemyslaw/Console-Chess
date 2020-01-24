@@ -141,7 +141,7 @@ const std::shared_ptr<Player>& Game::get_black_player() const {
 
 void Game::draw() {
 #ifdef linux
-     const char * left_upper_corner  = u8"\u250C";
+    const char * left_upper_corner  = u8"\u250C";
     const char * left_lower_corner  = u8"\u2514";
     const char * line_horizontal    = u8"\u2501";
     const char * line_vertical      = u8"\u2502";

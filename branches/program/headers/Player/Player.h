@@ -25,16 +25,24 @@ class Player {
     std::shared_ptr<Previous_Move> previous_move;
 public:
     void calculate_score();
+
     int get_score();
+
     std::shared_ptr<Board> get_current_board_state();
+
     std::vector<std::shared_ptr<Piece>> get_pieces();
+
     std::vector<std::shared_ptr<Piece>> get_enemy_pieces();
 
     Player(bool is_white, std::vector<std::shared_ptr<Piece>> &pieces,
            std::vector<std::shared_ptr<Piece>> &enemy_pieces, std::shared_ptr<Board> &current_board_state);
+
     virtual bool move() = 0;
+
     bool is_check();
+
     void generate_all_moves();
+
     std::vector<std::vector<std::shared_ptr<Move>>> get_all_moves();
 
 private:
@@ -42,13 +50,13 @@ private:
 
 public:
     void capture(std::shared_ptr<Piece> piece);
+
     void reset_all_moves(); // TODO add to uml
     int get_amount_of_moves(); // TODO add to uml
     void queening(Position position);
 
 protected:
     void do_move(std::shared_ptr<Move> move);
-
 
 
 };
