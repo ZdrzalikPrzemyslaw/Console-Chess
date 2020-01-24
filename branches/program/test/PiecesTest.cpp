@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_SUITE(PieceTestSuite)
 
         std::shared_ptr<Board> test_board1 = std::make_shared<Board>();
         std::shared_ptr<Piece> test_queen1= std::make_shared<Queen>(true);
-        test_queen1->set_field(test_board1->get_field(test_pos7));  // TODO: add a method to automatise these 2 commands (set_field and set_piece)
+        test_queen1->set_field(test_board1->get_field(test_pos7));
         test_board1->get_field(test_pos7)->set_piece(test_queen1);
         BOOST_CHECK_EQUAL(test_queen1->get_field(), test_board1->get_field(test_pos7));
         BOOST_CHECK_EQUAL(test_queen1, test_board1->get_field(test_pos7)->get_piece());

@@ -35,11 +35,7 @@ int main() {
                 std::cout << "\n";
             }
         }
-        if(input == "C"){
-            is_ai_player1 = false;
-        } else{
-            is_ai_player1 = true;
-        }
+        is_ai_player1 = !(input == "C");
         input = "n";
         while (input != "C" && input != "A") {
             std::cout << "czy chcesz by gracz 2 byl Czlowiekiem czy AI? [C/A]" << "\n";
@@ -53,11 +49,7 @@ int main() {
                 std::cout << "\n";
             }
         }
-        if(input == "C"){
-            is_ai_player2 = false;
-        } else{
-            is_ai_player2 = true;
-        }
+        is_ai_player2 = !(input == "C");
     }
     Game game(is_ai_player1, is_ai_player2, load_or_not);
 

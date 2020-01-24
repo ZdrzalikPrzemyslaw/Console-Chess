@@ -50,9 +50,8 @@ private:
 
 public:
     void capture(std::shared_ptr<Piece> piece);
-
-    void reset_all_moves(); // TODO add to uml
-    int get_amount_of_moves(); // TODO add to uml
+    void reset_all_moves();     // TODO add to uml
+    int get_amount_of_moves();  // TODO add to uml
     void queening(Position position);
 
 protected:
