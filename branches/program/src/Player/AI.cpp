@@ -17,7 +17,7 @@
 
 const int sleepMs = 5000;
 
-bool AI::move() {
+void AI::move(std::shared_ptr<Move> move) {
 #ifdef linux
     usleep(sleepMs * 1000);
 #elif _WIN32
@@ -32,7 +32,7 @@ bool AI::move() {
     }
     catch(const std::runtime_error& e){
         std::cout << "Caught " << typeid(e).name() << " in AI::move " << e.what() << "\n";
-        return false;
+        return;
     }
     for(auto &i: this->get_all_moves()){
             tmp += i.size();
@@ -45,15 +45,9 @@ bool AI::move() {
         for(auto &j : i){
             if(tmp == random_move_id){
                 this->do_move(j);
-                if (j->get_end_pos().row == 7 && this->get_current_board_state()->get_field(j->get_end_pos())->get_piece()->get_is_white()){
-                    this->queening(j->get_end_pos());
-                }
-                else if(j->get_end_pos().row == 0 && !this->get_current_board_state()->get_field(j->get_end_pos())->get_piece()->get_is_white()){
-                    this->queening(j->get_end_pos());
-                }
+                this->queening(j->get_end_pos());
             }
             tmp += 1;
         }
     }
-    return true;
 }

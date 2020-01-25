@@ -10,7 +10,7 @@
 
 class AI : public Player {
 public:
-    bool move() override;
+    void move(std::shared_ptr<Move> move = nullptr) override;
     using Player::Player;
 };
 

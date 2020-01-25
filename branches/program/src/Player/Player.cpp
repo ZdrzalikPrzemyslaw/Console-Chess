@@ -164,18 +164,18 @@ void Player::queening(Position position) {
     if(!dynamic_cast<Pawn*>(this->current_board_state->get_field(position)->get_piece().get())){
         return;
     }
-    std::shared_ptr<Piece> new_queen = std::make_shared<Queen>(this->current_board_state->get_field(position)->get_piece()->get_is_white());
-    auto it = this->pieces.begin();
-    while(it != this->pieces.end()){
-        if (*it == this->current_board_state->get_field(position)->get_piece()){
-            it = this->pieces.erase(it);
-        }else ++it;
-
+    if ((position.row == 7 && this->get_current_board_state()->get_field(position)->get_piece()->get_is_white())
+    || (position.row == 0 && !this->get_current_board_state()->get_field(position)->get_piece()->get_is_white())){
+        std::shared_ptr<Piece> new_queen = std::make_shared<Queen>(this->current_board_state->get_field(position)->get_piece()->get_is_white());
+        auto it = this->pieces.begin();
+        while(it != this->pieces.end()){
+            if (*it == this->current_board_state->get_field(position)->get_piece()){
+                it = this->pieces.erase(it);
+            }else ++it;
+        }
+        this->pieces.push_back(new_queen);
+        this->get_current_board_state()->get_field(position)->get_piece()->set_field(nullptr);
+        this->get_current_board_state()->get_field(position)->set_piece(new_queen);
+        this->get_current_board_state()->get_field(position)->get_piece()->set_field(this->current_board_state->get_field(position));
     }
-
-    this->pieces.push_back(new_queen);
-
-    this->get_current_board_state()->get_field(position)->get_piece()->set_field(nullptr);
-    this->get_current_board_state()->get_field(position)->set_piece(new_queen);
-    this->get_current_board_state()->get_field(position)->get_piece()->set_field(this->current_board_state->get_field(position));
 }

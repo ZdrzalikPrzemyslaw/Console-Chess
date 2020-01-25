@@ -52,6 +52,5 @@ int main() {
         is_ai_player2 = !(input == "C");
     }
     Game game(is_ai_player1, is_ai_player2, load_or_not);
-
     game.main_game_loop();
 }

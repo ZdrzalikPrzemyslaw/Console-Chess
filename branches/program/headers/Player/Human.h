@@ -11,10 +11,8 @@
 
 class Human : public Player {
 public:
-    bool move() override;
+    void move(std::shared_ptr<Move> move) override;
     using Player::Player;
-private:
-    Position parse_input_to_position(std::string input);
 };
 
 

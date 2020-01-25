@@ -13,6 +13,7 @@
 class Board;
 class Piece;
 class Player;
+class Position;
 
 class Game {
 private:
@@ -48,6 +49,11 @@ public:
     bool main_game_loop();
 
     boost::posix_time::time_duration time_passed(); // TODO : add to uml
+
+    void call_player_move(std::shared_ptr<Player> player);
+
+private:
+    Position parse_input_to_position(std::string input);
 };
 
 

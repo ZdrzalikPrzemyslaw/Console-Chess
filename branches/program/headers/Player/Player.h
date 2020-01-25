@@ -37,7 +37,7 @@ public:
     Player(bool is_white, std::vector<std::shared_ptr<Piece>> &pieces,
            std::vector<std::shared_ptr<Piece>> &enemy_pieces, std::shared_ptr<Board> &current_board_state);
 
-    virtual bool move() = 0;
+    virtual void move(std::shared_ptr<Move> move = nullptr) = 0;
 
     bool is_check();
 
@@ -50,8 +50,8 @@ private:
 
 public:
     void capture(std::shared_ptr<Piece> piece);
-    void reset_all_moves();     // TODO add to uml
-    int get_amount_of_moves();  // TODO add to uml
+    void reset_all_moves();
+    int get_amount_of_moves();
     void queening(Position position);
 
 protected:
