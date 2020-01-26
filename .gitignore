@@ -1,3 +1,6 @@
 .idea/
 .svn/
 cmake-build-debug/
+.vs/
+out/
+CMakeSettings.json
