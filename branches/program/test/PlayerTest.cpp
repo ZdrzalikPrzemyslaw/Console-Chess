@@ -11,6 +11,7 @@
 #include "Field.h"
 #include "Pieces/Piece.h"
 #include "Pieces/Queen.h"
+
 #include "Player/Move.h"
 
 BOOST_AUTO_TEST_SUITE(PlayerTestSuite)
@@ -51,6 +52,17 @@ BOOST_AUTO_TEST_CASE(PlayerTest1) {
         BOOST_CHECK_EQUAL(20, tmp);
 
 }
+
+    BOOST_AUTO_TEST_CASE(PlayerTest4){
+        Game game;
+        game.get_white_player()->generate_all_moves();
+        std::shared_ptr<Move> test_move = std::make_shared<Move>(Position(1,1), Position(3,1));
+        BOOST_CHECK(game.get_board()->get_field(Position(1,1))->get_piece());
+        BOOST_CHECK(!game.get_board()->get_field(Position(3,1))->get_piece());
+        game.get_white_player()->move(test_move);
+        BOOST_CHECK(!game.get_board()->get_field(Position(1,1))->get_piece());
+        BOOST_CHECK(game.get_board()->get_field(Position(3,1))->get_piece());
+    }
 
 
 
