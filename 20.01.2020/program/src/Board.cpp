@@ -6,6 +6,7 @@
 #include "Board.h"
 #include "Field.h"
 #include "Pieces/Piece.h"
+#include <algorithm>
 
 
 const int board_dimensions = 8;

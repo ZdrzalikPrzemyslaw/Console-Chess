@@ -6,6 +6,6 @@
 
 Position::Position(int row, int col) : row(row), col(col){}
 
-bool Position::operator==(Position &rhs) {
+bool Position::operator==(const Position &rhs ){
     return this->row == rhs.row && (this->col == rhs.col);
 }

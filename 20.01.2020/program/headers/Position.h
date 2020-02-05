@@ -9,7 +9,7 @@ struct Position{
 public:
     int row;
     int col;
-    bool operator == (Position &rhs);
+    bool operator == (const Position &rhs);
     Position();
     Position(int row, int col);
 };
