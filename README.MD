@@ -2,7 +2,7 @@
 Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/wiki/Chess). 
 
 ## Gameplay
-![GamePlay.png](https://github.com/ZdrzalikPrzemyslaw/Sudoku_Game/blob/master/GamePlay.png)
+![GamePlay.png](https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png)
 
 
 ## Usage
