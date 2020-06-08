@@ -2,8 +2,10 @@
 Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/wiki/Chess). 
 
 ## Gameplay
-![GamePlay.png](https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png)
-
+<p align="center"><img src="https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png"
+     alt="Gameplay Screenshot"/>
+  </p>
+  
 ## Usage
 Run the Main CmakeList.txt using Cmake 
 
