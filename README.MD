@@ -4,11 +4,8 @@ Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/w
 ## Gameplay
 ![GamePlay.png](https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png)
 
-
 ## Usage
-Using Maven from Terminal while in the parent project dir execute the following commands:
-* ```mvn clean package install```
-* ```mvn -pl GUI javafx:compile javafx:run```
+Run the Main CmakeList.txt using Cmake 
 
 ## Features
 * Save game to file
