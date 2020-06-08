@@ -9,6 +9,10 @@ Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/w
 ## Usage
 Run the Main CmakeList.txt using Cmake 
 
+## Requirements
+
+Requires the boost libraries to work
+
 ## Features
 * Save game to file
 * Game timer
