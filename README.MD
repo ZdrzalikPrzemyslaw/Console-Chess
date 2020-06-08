@@ -2,13 +2,16 @@
 Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/wiki/Chess). 
 
 ## Gameplay
-![GamePlay.png](https://github.com/ZdrzalikPrzemyslaw/Sudoku_Game/blob/master/GamePlay.png)
-
-
+<p align="center"><img src="https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png"
+     alt="Gameplay Screenshot"/>
+  </p>
+  
 ## Usage
-Using Maven from Terminal while in the parent project dir execute the following commands:
-* ```mvn clean package install```
-* ```mvn -pl GUI javafx:compile javafx:run```
+Run the Main CmakeList.txt using Cmake 
+
+## Requirements
+
+Requires the boost libraries to work
 
 ## Features
 * Save game to file
