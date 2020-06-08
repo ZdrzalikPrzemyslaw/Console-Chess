@@ -2,7 +2,7 @@
 Console C++ implenetation of the popular game [Chess](https://en.wikipedia.org/wiki/Chess). 
 
 ## Gameplay
-<p align="center"><img src="https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png"
+<p align="left"><img src="https://github.com/ZdrzalikPrzemyslaw/Console-Chess/blob/master/.github/Gameplay.png"
      alt="Gameplay Screenshot"/>
   </p>
   
