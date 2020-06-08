@@ -4,7 +4,7 @@ project(pobi_proj_szachy)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_CPP_COMPILER GCC)
+set(CMAKE_CPP_COMPILER G++)
 
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_C_FLAGS_DEBUG "-g3 -gdwarf-4")
